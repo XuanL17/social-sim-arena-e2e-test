@@ -1,9 +1,9 @@
 {
   "environment": "isolated-e2e-test",
-  "endpoint": "https://social-sim-arena-e2e-test.vercel.app/api/example-agent",
-  "entrant_id": "e2e_demo",
+  "endpoint": "https://social-sim-arena-e2e-agent.vercel.app/forecast",
+  "entrant_id": "e2e_remote_backend",
   "registration_validated": true,
-  "run_at": "2026-09-15T05:49:15.888094+00:00",
+  "run_at": "2026-09-15T06:09:56.486004+00:00",
   "simulated_received_at": "2028-01-03T11:00:00Z",
   "simulated_resolved_at": "2028-01-18T00:00:00+00:00",
   "scope": "Real signed HTTPS calls; local production parsers, bundle normalization and scorers; synthetic clock and source outcomes. Does not run scheduled production refresh or GitHub registration review.",
@@ -12,29 +12,35 @@
       "round_id": "sandbox-approval-2028-w01",
       "status": 200,
       "idempotency": "passed",
-      "bad_signature_status": 401
+      "bad_signature_status": 401,
+      "backend_service": "independent-vercel-project",
+      "backend_deployment": "social-sim-arena-e2e-agent-rffx3cn5u-yangs-projects-36e22525.vercel.app"
     },
     {
       "round_id": "sandbox-profile-2028-w01",
       "status": 200,
       "idempotency": "passed",
-      "bad_signature_status": 401
+      "bad_signature_status": 401,
+      "backend_service": "independent-vercel-project",
+      "backend_deployment": "social-sim-arena-e2e-agent-rffx3cn5u-yangs-projects-36e22525.vercel.app"
     },
     {
       "round_id": "sandbox-ranking-2028-w01",
       "status": 200,
       "idempotency": "passed",
-      "bad_signature_status": 401
+      "bad_signature_status": 401,
+      "backend_service": "independent-vercel-project",
+      "backend_deployment": "social-sim-arena-e2e-agent-rffx3cn5u-yangs-projects-36e22525.vercel.app"
     }
   ],
   "receipt": {
     "schema_version": "1.0.0",
     "batch_id": "batch-2028-01-03",
-    "entrant_id": "e2e_demo",
+    "entrant_id": "e2e_remote_backend",
     "deadline": "2028-01-08T14:00:00Z",
     "received_at": "2028-01-03T11:00:00Z",
     "bundle_sha256": "572c311f6c34eeef39e11492f62b42cdab979a9830c86314e2356d5f7f5f8b71",
-    "response_sha256": "d0bef07ea3d5d9ed7e702ff61c54c3a8dea068114dd9668a8e0ceee3c42f8e31",
+    "response_sha256": "c99afb3858f42c0706fbf9586afc7e234ebeb2264c59939d336d9c7c4e47bec5",
     "accepted": 3,
     "rejected": 0,
     "unanswered": []
@@ -42,11 +48,11 @@
   "late_receipt": {
     "schema_version": "1.0.0",
     "batch_id": "batch-2028-01-03",
-    "entrant_id": "e2e_demo",
+    "entrant_id": "e2e_remote_backend",
     "deadline": "2028-01-08T14:00:00Z",
     "received_at": "2028-01-18T00:00:00Z",
     "bundle_sha256": "572c311f6c34eeef39e11492f62b42cdab979a9830c86314e2356d5f7f5f8b71",
-    "response_sha256": "d0bef07ea3d5d9ed7e702ff61c54c3a8dea068114dd9668a8e0ceee3c42f8e31",
+    "response_sha256": "c99afb3858f42c0706fbf9586afc7e234ebeb2264c59939d336d9c7c4e47bec5",
     "accepted": 0,
     "rejected": 3,
     "unanswered": []
@@ -89,5 +95,8 @@
         "n": 5
       }
     }
-  ]
+  ],
+  "caller": "vercel-server",
+  "backend": "independent-vercel-project",
+  "platform_deployment": "social-sim-arena-e2e-test-jygv504p3-yangs-projects-36e22525.vercel.app"
 }

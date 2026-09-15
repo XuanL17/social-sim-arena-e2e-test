@@ -6,7 +6,7 @@
 
 This fork is owned by assassin808. Inherited results are a historical snapshot.
 Live refresh and upstream deployment workflows are disabled. Use
-`tools/run_agent_e2e.py` for explicit HTTPS rehearsals with synthetic clocks,
+`tools/trigger_hosted_e2e.py` to run Vercel-to-Vercel rehearsals with synthetic clocks,
 local records and a published test report. No production private key is used.
 
 The original project README follows for background; its live-refresh quickstart

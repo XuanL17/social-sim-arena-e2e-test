@@ -1,0 +1,76 @@
+{
+  "report_sha256": "8642e48c51204e42607efc722039a9a8bf8cc422366aeb169c6963846c92e904",
+  "registration_pr": "https://github.com/assassin808/social-sim-arena-e2e-test/pull/1",
+  "registration_state": "MERGED",
+  "registration_validation": "production schema and ownership validator passed locally; no GitHub CI check runs reported",
+  "backend_log_status_counts": {
+    "401": 3,
+    "200": 6
+  },
+  "backend_requests": [
+    {
+      "timestamp": 1789452595685,
+      "requestMethod": "POST",
+      "requestPath": "/forecast",
+      "responseStatusCode": 200,
+      "deploymentId": "dpl_9nyw57nBy6DRtxL7kwHUVriXppiD"
+    },
+    {
+      "timestamp": 1789452595792,
+      "requestMethod": "POST",
+      "requestPath": "/forecast",
+      "responseStatusCode": 200,
+      "deploymentId": "dpl_9nyw57nBy6DRtxL7kwHUVriXppiD"
+    },
+    {
+      "timestamp": 1789452595874,
+      "requestMethod": "POST",
+      "requestPath": "/forecast",
+      "responseStatusCode": 401,
+      "deploymentId": "dpl_9nyw57nBy6DRtxL7kwHUVriXppiD"
+    },
+    {
+      "timestamp": 1789452595954,
+      "requestMethod": "POST",
+      "requestPath": "/forecast",
+      "responseStatusCode": 200,
+      "deploymentId": "dpl_9nyw57nBy6DRtxL7kwHUVriXppiD"
+    },
+    {
+      "timestamp": 1789452595998,
+      "requestMethod": "POST",
+      "requestPath": "/forecast",
+      "responseStatusCode": 200,
+      "deploymentId": "dpl_9nyw57nBy6DRtxL7kwHUVriXppiD"
+    },
+    {
+      "timestamp": 1789452596055,
+      "requestMethod": "POST",
+      "requestPath": "/forecast",
+      "responseStatusCode": 401,
+      "deploymentId": "dpl_9nyw57nBy6DRtxL7kwHUVriXppiD"
+    },
+    {
+      "timestamp": 1789452596114,
+      "requestMethod": "POST",
+      "requestPath": "/forecast",
+      "responseStatusCode": 200,
+      "deploymentId": "dpl_9nyw57nBy6DRtxL7kwHUVriXppiD"
+    },
+    {
+      "timestamp": 1789452596153,
+      "requestMethod": "POST",
+      "requestPath": "/forecast",
+      "responseStatusCode": 200,
+      "deploymentId": "dpl_9nyw57nBy6DRtxL7kwHUVriXppiD"
+    },
+    {
+      "timestamp": 1789452596195,
+      "requestMethod": "POST",
+      "requestPath": "/forecast",
+      "responseStatusCode": 401,
+      "deploymentId": "dpl_9nyw57nBy6DRtxL7kwHUVriXppiD"
+    }
+  ],
+  "platform_unauthorized_status": 401
+}
