@@ -1,0 +1,136 @@
+{
+  "run_at": "2026-09-15T23:46:02.094604+00:00",
+  "endpoint": "https://social-sim-arena-e2e-agent.vercel.app/forecast",
+  "mode": "concurrent-identical-miss",
+  "models": [
+    {
+      "model": "liquid/lfm-2.5-2.6b:free",
+      "initial": [
+        {
+          "status": 200,
+          "seconds": 3.132,
+          "generation": "gen-1789515963-cCTclIa2rd4ZXaGePvm4",
+          "cost": "0",
+          "cache": "miss",
+          "forecast": {
+            "mean": 50,
+            "sd": 12
+          }
+        },
+        {
+          "status": 200,
+          "seconds": 3.146,
+          "generation": "gen-1789515963-LxIUsWVDBQV2jkzrUytE",
+          "cost": "0",
+          "cache": "miss",
+          "forecast": {
+            "mean": 50,
+            "sd": 10
+          }
+        }
+      ],
+      "replay": {
+        "status": 200,
+        "seconds": 0.168,
+        "generation": "gen-1789515963-LxIUsWVDBQV2jkzrUytE",
+        "cost": "0",
+        "cache": "hit",
+        "forecast": {
+          "mean": 50,
+          "sd": 10
+        }
+      },
+      "initial_all_passed": true,
+      "race_same_generation": false,
+      "replay_cache_hit": true
+    },
+    {
+      "model": "nex-agi/nex-n2.5-mini:free",
+      "initial": [
+        {
+          "status": 502,
+          "seconds": 45.548,
+          "generation": null,
+          "cost": null,
+          "cache": null
+        },
+        {
+          "status": 502,
+          "seconds": 45.362,
+          "generation": null,
+          "cost": null,
+          "cache": null
+        }
+      ],
+      "replay": null,
+      "initial_all_passed": false,
+      "race_same_generation": null,
+      "replay_cache_hit": false
+    },
+    {
+      "model": "google/gemma-4-31b-it:free",
+      "initial": [
+        {
+          "status": 502,
+          "seconds": 0.479,
+          "generation": null,
+          "cost": null,
+          "cache": null
+        },
+        {
+          "status": 502,
+          "seconds": 0.383,
+          "generation": null,
+          "cost": null,
+          "cache": null
+        }
+      ],
+      "replay": null,
+      "initial_all_passed": false,
+      "race_same_generation": null,
+      "replay_cache_hit": false
+    },
+    {
+      "model": "dots-studio/dots-3-note-preview:free",
+      "initial": [
+        {
+          "status": 200,
+          "seconds": 2.39,
+          "generation": "gen-1789516011-vdjh2rDdzl1Sk0cG6803",
+          "cost": "0",
+          "cache": "miss",
+          "forecast": {
+            "mean": 50,
+            "sd": 1.0
+          }
+        },
+        {
+          "status": 200,
+          "seconds": 2.613,
+          "generation": "gen-1789516011-VltgsWGFDzJswcw5upQ8",
+          "cost": "0",
+          "cache": "miss",
+          "forecast": {
+            "mean": 50,
+            "sd": 10
+          }
+        }
+      ],
+      "replay": {
+        "status": 200,
+        "seconds": 0.238,
+        "generation": "gen-1789516011-VltgsWGFDzJswcw5upQ8",
+        "cost": "0",
+        "cache": "hit",
+        "forecast": {
+          "mean": 50,
+          "sd": 10
+        }
+      },
+      "initial_all_passed": true,
+      "race_same_generation": false,
+      "replay_cache_hit": true
+    }
+  ],
+  "limitations": "A single run is not long-term reliability evidence. Failures retained. Runtime Cache is not a distributed lock."
+}

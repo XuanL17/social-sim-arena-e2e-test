@@ -107,9 +107,34 @@ def _schema_branches(path: Path) -> dict[str, dict[str, Any]]:
     schema = _read_json(path)
     branches = schema["definitions"]["questionnaire_answer"]["oneOf"]
     return {
-        branch["properties"]["target_type"]["const"]: branch
+        branch["properties"]["target_type"]["const"]: {
+            **branch, "$schema": schema.get("$schema", "http://json-schema.org/draft-07/schema#"),
+            "definitions": schema.get("definitions", {}),
+        }
         for branch in branches
     }
+
+
+def _resolution_source_url(round_data: dict[str, Any], data: dict[str, Any]):
+    """Use published task/source metadata; never invent a publisher URL."""
+    if round_data.get("resolution_source_url"):
+        return round_data["resolution_source_url"]
+    series = round_data.get("series", "")
+    for task in data.get("tasks", []):
+        match = task.get("match", {})
+        if not ("series" in match or "series_prefix" in match):
+            continue
+        if "series" in match and series not in match["series"]:
+            continue
+        if "series_prefix" in match and not series.startswith(match["series_prefix"]):
+            continue
+        if "target_type" in match and normalize_target_type(round_data.get("target_type")) != match["target_type"]:
+            continue
+        url = (task.get("source") or {}).get("url")
+        if url:
+            return url
+    source = data.get("series_provenance", {}).get(series)
+    return data.get("sources", {}).get(source, {}).get("url")
 
 
 def _latest_public_reference(round_data: dict[str, Any]) -> dict[str, Any] | None:
@@ -164,9 +189,7 @@ def build_manifest(data: dict[str, Any] | None = None,
             "deadline": _iso(_round_deadline(round_data)),
             "lock_at": round_data["lock_at"],
             "resolution_rule": round_data.get("resolve"),
-            # Season 0 stores a human-readable resolution rule but does not
-            # currently declare a canonical source URL as a separate field.
-            "resolution_source_url": round_data.get("resolution_source_url"),
+            "resolution_source_url": _resolution_source_url(round_data, data),
             "latest_public_reference": _latest_public_reference(round_data),
             "answer_schema": {
                 "agent": agent_schemas.get(target_type),

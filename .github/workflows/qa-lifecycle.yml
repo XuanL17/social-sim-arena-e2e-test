@@ -1,0 +1,47 @@
+name: Isolated test lifecycle
+on:
+  workflow_dispatch:
+  # Stops source work at 2026-10-01 UTC; artifacts only, no repository writes.
+  schedule:
+    - cron: '43 */6 * * *'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: qa-lifecycle
+  cancel-in-progress: false
+jobs:
+  lifecycle:
+    if: github.repository == 'assassin808/social-sim-arena-e2e-test'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests
+      - run: python -m unittest tests.test_qa_lifecycle
+      - name: Find preceding isolated state artifact
+        id: previous
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          prior=$(gh api "repos/${GITHUB_REPOSITORY}/actions/artifacts?name=qa-lifecycle-state&per_page=20" --jq '.artifacts | map(select(.expired == false)) | .[0].workflow_run.id // empty')
+          echo "run_id=$prior" >> "$GITHUB_OUTPUT"
+      - uses: actions/download-artifact@v4
+        if: steps.previous.outputs.run_id != ''
+        with:
+          name: qa-lifecycle-state
+          path: qa-lifecycle/
+          run-id: ${{ steps.previous.outputs.run_id }}
+          github-token: ${{ github.token }}
+      - name: Run isolated lifecycle
+        id: lifecycle
+        run: python tools/qa_lifecycle.py
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.lifecycle.outcome != 'skipped'
+        with:
+          name: qa-lifecycle-state
+          retention-days: 30
+          path: qa-lifecycle/

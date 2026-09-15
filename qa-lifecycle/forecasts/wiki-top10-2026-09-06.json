@@ -1,0 +1,28 @@
+{
+  "round_id": "wiki-top10-2026-09-06",
+  "entrant": "qa-persistence-public-source",
+  "ranking": [
+    "Hayden_Panettiere",
+    "Wladimir_Klitschko",
+    "Jansen_Panettiere",
+    "Natalie_Harp",
+    "Spider-Man:_Brand_New_Day",
+    "The_Odyssey_(2026_film)",
+    "Deaths_in_2026",
+    "Awarapan_2",
+    "Google",
+    ".xxx"
+  ],
+  "filed_at": "2026-09-15T23:45:19.917463Z",
+  "mode": "historical_replay",
+  "history_week_end": "2026-08-23",
+  "source_hashes": {
+    "2026-08-17": "94515ac8cce156207c864d16182fcfa422a568016078f90a5b3a8376c4e6da5f",
+    "2026-08-18": "d1a6af81100bfa1d2e6197cf4d975eab2d57870d875ec975062fff94f4bd90ea",
+    "2026-08-19": "8aeb368a1a440a0e9664cdf8e9caaad26d9594c9cd360ca898f003bfcee99e4e",
+    "2026-08-20": "5416949e1fdb6f977f51babcd38adaaec83b9a6c1c0d607e3432fba7f3b76ff1",
+    "2026-08-21": "82f619e915d750560336cbfb81651cb409eadc3e17eb46346dad1728561cecbf",
+    "2026-08-22": "58bd0d1f1077e3dfe1dc9340117178e5aa22c2b93c6c6fc2ef43ba72b8dd1324",
+    "2026-08-23": "f0bee1f927f41ee02bb2e8efd57ca5e93a02ff4fe82ba333cdf5b8693ff815b8"
+  }
+}

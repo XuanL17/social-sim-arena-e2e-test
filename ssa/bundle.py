@@ -544,6 +544,12 @@ def normalise(response, bundle, now=None, entrant=None):
         except Rejected as err:
             reasons.append((err.reason, str(err)))
         due = batches.effective_deadline(question["lock_at"])
+        published = batches.published_at(question["lock_at"])
+        if received_at < published:
+            reasons.append((
+                "not_published",
+                f"{rid}: this question opens at {iso(published)}; "
+                f"this payload arrived {iso(received_at)}"))
         if received_at >= due:
             reasons.append((
                 "late",

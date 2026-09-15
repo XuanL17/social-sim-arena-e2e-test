@@ -1,0 +1,28 @@
+{
+  "round_id": "wiki-top10-2026-09-27",
+  "entrant": "qa-persistence-public-source",
+  "ranking": [
+    "Elizabeth_Holmes",
+    "September_11_attacks",
+    "Killing_of_the_Clancy_children",
+    "Ben_Shelton",
+    "Elena_Rybakina",
+    "Deaths_in_2026",
+    "Hanuman_Ansh",
+    "Aryna_Sabalenka",
+    "Mirzapur_(film)",
+    "Alexander_Zverev"
+  ],
+  "filed_at": "2026-09-15T23:45:54.063135Z",
+  "mode": "live_test",
+  "history_week_end": "2026-09-13",
+  "source_hashes": {
+    "2026-09-07": "ce688b2d8a5946c3b3d2eacf4e325ab2d227ce139e8efd64c5d423206496d968",
+    "2026-09-08": "37835cdc6e24f940383496552207b8ffb587a54e7802005aee682ee453bd4865",
+    "2026-09-09": "bd873702e1580367a967a38428f339a37f26d7a52fda9911bc28bee2383c03ff",
+    "2026-09-10": "d5f38f875f7ccacad671102aab3d6eb9737a68116f90e8354e708c158b5bbaf9",
+    "2026-09-11": "c863b7dac815c09c71e7a006cb9b510f4380194044b3851e33de763a830530ff",
+    "2026-09-12": "41638e9b4789359f0e011c32077f7e80af402a780a0013b052654d95d798d44b",
+    "2026-09-13": "baa763699e633678b5204eb60db064d67414f882441bb1790c1909416e2668f9"
+  }
+}

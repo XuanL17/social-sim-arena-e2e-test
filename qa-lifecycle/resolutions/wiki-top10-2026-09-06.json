@@ -1,0 +1,26 @@
+{
+  "round_id": "wiki-top10-2026-09-06",
+  "resolved_at": "2026-09-15T23:45:54.063135Z",
+  "outcome": [
+    "Killing_of_the_Clancy_children",
+    "Gloria_Steinem",
+    "Toxic_(2026_film)",
+    "Deaths_in_2026",
+    "Dolly_Parton",
+    ".xxx",
+    ".xyz",
+    "Hanuman_Ansh",
+    "Spider-Man:_Brand_New_Day",
+    "Coyote_vs._Acme"
+  ],
+  "source_hashes": {
+    "2026-08-31": "a943296b1834cc3f6b4be076645b198d9ee2321ed98e833b0fd6513f9123b0b1",
+    "2026-09-01": "881234d8dc438f76d7a3703a48a6073463550c2c651b80f4e2626beae7fa36a9",
+    "2026-09-02": "289dc2fde0df922ab58a2f64e4ea6fe60b4c045b738ac11c3bcef067ea061831",
+    "2026-09-03": "9038ab83fbdfffb5f273548098005104eb742dab6f198ca02a0a4314f80ad7b8",
+    "2026-09-04": "d1fbcb26496da6236c5015267e618708741297e06f671af35f872843a3d21a3d",
+    "2026-09-05": "a7749780d994e7bbf1890c14431ebf36eb02cadb0dd2310df195b13d5685d87f",
+    "2026-09-06": "192cc560be31db9e63b998b2deb1449d835b014d9622454506fd6cc8decb0897"
+  },
+  "rule": "Wikimedia daily top endpoint (top/en.wikipedia/all-access), the week's seven archived daily lists summed per article, exclusion rule main_page_and_namespaces_v1 applied, top 10 by weekly total, ties broken by title ascending. An article absent from a day's top-1000 contributes zero for that day."
+}
