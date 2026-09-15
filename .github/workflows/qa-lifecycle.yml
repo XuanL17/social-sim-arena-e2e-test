@@ -45,3 +45,27 @@ jobs:
           name: qa-lifecycle-state
           retention-days: 30
           path: qa-lifecycle/
+
+  publish:
+    needs: lifecycle
+    if: always() && needs.lifecycle.result != 'cancelled'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions:
+      contents: write
+      actions: read
+    concurrency:
+      group: isolated-qa-results-publish
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: qa-lifecycle-state
+          path: qa-lifecycle/
+      - name: Publish allowlisted report to qa-results only
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/publish_qa_results.py lifecycle

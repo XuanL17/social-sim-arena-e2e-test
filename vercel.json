@@ -3,7 +3,8 @@
   "version": 2,
   "git": {
     "deploymentEnabled": {
-      "ui/site-refinement": false
+      "ui/site-refinement": false,
+      "qa-results": false
     }
   },
   "builds": [

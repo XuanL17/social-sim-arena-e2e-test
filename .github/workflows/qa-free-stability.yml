@@ -10,6 +10,8 @@ concurrency:
   cancel-in-progress: false
 jobs:
   probe:
+    outputs:
+      enabled: ${{ steps.window.outputs.enabled }}
     if: github.repository == 'assassin808/social-sim-arena-e2e-test'
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -39,3 +41,27 @@ jobs:
           name: free-stability-${{ github.run_id }}
           path: qa-stability/
           retention-days: 30
+
+  publish:
+    needs: probe
+    if: always() && needs.probe.result != 'cancelled' && needs.probe.outputs.enabled == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions:
+      contents: write
+      actions: read
+    concurrency:
+      group: isolated-qa-results-publish
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: free-stability-${{ github.run_id }}
+          path: qa-stability/
+      - name: Publish allowlisted report to qa-results only
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/publish_qa_results.py stability

@@ -25,3 +25,6 @@
 - `site/qa-storage-hosted.json` / `qa-stability/latest.json` / `qa-lifecycle/report.json`
 
 原始5个问题中，3个API问题已修复；2个P1界面问题尚未修复。本页不会把过去测试报告中的expectedFailure当作当前状态。
+
+
+更新：用户已授权专用 qa-results 分支自动发布；网页读取最新结果，不再仅停留在部署快照。具体权限、范围和失败回退见 qa-auto-publish.md。原文中仅归档/未授权描述为此前状态。
