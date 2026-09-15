@@ -25,45 +25,6 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "socialsimarena.com"
-        }
-      ],
-      "status": 308,
-      "headers": {
-        "Location": "https://social-simulation-arena.com/$1"
-      }
-    },
-    {
-      "src": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.socialsimarena.com"
-        }
-      ],
-      "status": 308,
-      "headers": {
-        "Location": "https://social-simulation-arena.com/$1"
-      }
-    },
-    {
-      "src": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.social-simulation-arena.com"
-        }
-      ],
-      "status": 308,
-      "headers": {
-        "Location": "https://social-simulation-arena.com/$1"
-      }
-    },
-    {
       "src": "/api/v1/questionnaire",
       "dest": "/api/questionnaire.py"
     },

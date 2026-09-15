@@ -168,7 +168,7 @@ def validate_entrant(path, author=None, base_ref=None):
 # cannot rewrite `github` to its own author in the same change. Maintainers may
 # edit anything. Without `--author` (a local run) ownership is not checked.
 
-MAINTAINERS = frozenset({"jajamoa", "assassin808", "zhenzemo"})
+MAINTAINERS = frozenset({"assassin808"})
 
 # Active endpoints one GitHub account may register. Every registration is a
 # seat the cron calls every week, so an account that could register a hundred

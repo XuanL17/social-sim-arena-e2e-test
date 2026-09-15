@@ -1,0 +1,91 @@
+{
+  "environment": "isolated-e2e-test",
+  "endpoint": "https://social-sim-arena-e2e-test.vercel.app/api/example-agent",
+  "run_at": "2026-09-15T05:43:56.619886+00:00",
+  "simulated_received_at": "2028-01-03T11:00:00Z",
+  "simulated_resolved_at": "2028-01-18T00:00:00+00:00",
+  "scope": "Real signed HTTPS calls; local production parsers, bundle normalization and scorers; synthetic clock and source outcomes. Does not run scheduled production refresh or GitHub registration review.",
+  "calls": [
+    {
+      "round_id": "sandbox-approval-2028-w01",
+      "status": 200,
+      "idempotency": "passed",
+      "bad_signature_status": 401
+    },
+    {
+      "round_id": "sandbox-profile-2028-w01",
+      "status": 200,
+      "idempotency": "passed",
+      "bad_signature_status": 401
+    },
+    {
+      "round_id": "sandbox-ranking-2028-w01",
+      "status": 200,
+      "idempotency": "passed",
+      "bad_signature_status": 401
+    }
+  ],
+  "receipt": {
+    "schema_version": "1.0.0",
+    "batch_id": "batch-2028-01-03",
+    "entrant_id": "e2e_demo",
+    "deadline": "2028-01-08T14:00:00Z",
+    "received_at": "2028-01-03T11:00:00Z",
+    "bundle_sha256": "572c311f6c34eeef39e11492f62b42cdab979a9830c86314e2356d5f7f5f8b71",
+    "response_sha256": "d0bef07ea3d5d9ed7e702ff61c54c3a8dea068114dd9668a8e0ceee3c42f8e31",
+    "accepted": 3,
+    "rejected": 0,
+    "unanswered": []
+  },
+  "late_receipt": {
+    "schema_version": "1.0.0",
+    "batch_id": "batch-2028-01-03",
+    "entrant_id": "e2e_demo",
+    "deadline": "2028-01-08T14:00:00Z",
+    "received_at": "2028-01-18T00:00:00Z",
+    "bundle_sha256": "572c311f6c34eeef39e11492f62b42cdab979a9830c86314e2356d5f7f5f8b71",
+    "response_sha256": "d0bef07ea3d5d9ed7e702ff61c54c3a8dea068114dd9668a8e0ceee3c42f8e31",
+    "accepted": 0,
+    "rejected": 3,
+    "unanswered": []
+  },
+  "results": [
+    {
+      "round_id": "sandbox-approval-2028-w01",
+      "shape": "continuous_normal",
+      "status": "resolved",
+      "scores": {
+        "crps": 53.67905208226122
+      }
+    },
+    {
+      "round_id": "sandbox-profile-2028-w01",
+      "shape": "profile_energy",
+      "status": "resolved",
+      "scores": {
+        "energy": 149.32702045645252,
+        "level": 54.67657536960186,
+        "structure": 102.56441199855928,
+        "per_cell": [
+          125.1814160755038,
+          21.1814160755038,
+          61.1814160755038,
+          53.6814160755038
+        ],
+        "mean_cell_crps": 65.3064160755038
+      }
+    },
+    {
+      "round_id": "sandbox-ranking-2028-w01",
+      "shape": "ranking_list",
+      "status": "resolved",
+      "scores": {
+        "loss": 0.2,
+        "discordant_pairs": 2,
+        "pairs": 10,
+        "exact_positions": 1,
+        "n": 5
+      }
+    }
+  ]
+}

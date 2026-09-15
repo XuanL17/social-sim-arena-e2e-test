@@ -5,8 +5,8 @@
     {
       "key_id": "ssa-live",
       "purpose": "live",
-      "public_key": "NAUoC6NhjIAyDXQWLcR59Z1/X5yAFnFiNXdxgHEwKuE=",
-      "since": "2026-09-06"
+      "public_key": "wJyVCTauZdK1B6zQLXIMLzZktFWHFP11jirmGC/ZEwo=",
+      "note": "Independent key for assassin808 E2E test platform only."
     },
     {
       "key_id": "ssa-test",

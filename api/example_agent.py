@@ -4,7 +4,7 @@ after verifying the arena's signature, exactly as examples/agent-api/server.py
 does locally. Register it as an entrant only for a rehearsal week, then revoke
 it: its forecasts are constants and would sit on the board as an entrant.
 
-    https://social-simulation-arena.com/api/example-agent
+    https://social-sim-arena-e2e-test.vercel.app/api/example-agent
 """
 
 import json

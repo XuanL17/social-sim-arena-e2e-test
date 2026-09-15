@@ -1,0 +1,13 @@
+.git
+.local
+.env*
+!.env.example
+forecasts
+replies
+search
+news
+backtest
+locks
+stamps
+sources
+_removed*

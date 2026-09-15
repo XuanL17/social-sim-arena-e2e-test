@@ -10,7 +10,7 @@
 <meta name="description" content="Live benchmark for social simulation: models forecast the next public release before it is published. Locked, hashed, scored in public.">
 <meta property="og:title" content="Social Simulation Arena">
 <meta property="og:description" content="Live benchmark for social simulation: models forecast the next public release before it is published. Locked, hashed, scored in public.">
-<meta property="og:image" content="https://social-simulation-arena.com/card.png">
+<meta property="og:image" content="https://social-sim-arena-e2e-test.vercel.app/card.png">
 <meta name="twitter:card" content="summary_large_image">
 <style>
 :root{
@@ -668,7 +668,7 @@ table.ent td a.row{color:inherit;text-decoration:none;}
 <script defer src="/_vercel/insights/script.js"></script>
 <link rel="preload" href="fonts/inconsolata-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="typography.css?v=21">
 </head>
-<body class="site-home">
+<body class="site-home"><div role="status" style="padding:10px;background:#fff1bd;color:#302400;text-align:center;font:14px sans-serif">E2E TEST — inherited data is a snapshot · <a href="e2e.html">Open test dashboard / 测试控制台</a></div>
 
 <header class="site-header">
 <nav class="top site-nav" aria-label="Main navigation">
@@ -681,7 +681,7 @@ table.ent td a.row{color:inherit;text-decoration:none;}
       <a class="nav-live" href="#leaderboard" title="The arena is running: questions are being called, locked and scored"><span class="livedot" aria-hidden="true"></span>Live</a>
       <a class="item" href="background.html">Background</a>
       <a class="item" href="docs.html">Docs</a>
-      <a class="item" href="https://github.com/Social-Atoms/social-sim-arena" target="_blank" rel="noopener">GitHub</a>
+      <a class="item" href="https://github.com/assassin808/social-sim-arena-e2e-test" target="_blank" rel="noopener">GitHub</a>
     </div>
     <div class="right">
       <a class="cta" id="nav-submit" href="#submit" data-goto="submit">Enter the arena</a>
@@ -838,7 +838,7 @@ table.ent td a.row{color:inherit;text-decoration:none;}
 </main>
 
 <script>
-const RAW  = 'https://raw.githubusercontent.com/Social-Atoms/social-sim-arena/main/site/data.json';
+const RAW  = 'https://raw.githubusercontent.com/assassin808/social-sim-arena-e2e-test/main/site/data.json';
 const ENTITY = { crowd:'#15803d', ewma:'#4b4a46', trend:'#8b897f', climatology:'#c6c4bc', persistence:'#b3b1aa' };
 const MCOLORS = { 'gpt-5.5':'#10a37f','claude-opus':'#d97757','gemini-pro':'#4285f4','grok':'#1d1d1f','deepseek':'#4d6bfe','qwen':'#7b5cf0' };
 const VENDORS = [
@@ -1047,7 +1047,7 @@ function renderEntrant(id){
     +(()=>{ const own = e.homepage && !/social-sim-arena/.test(e.homepage) ? ['homepage', e.homepage] : null;
             const v = vendorOf(id), home = own || (v && VENDOR_HOME[v]) || null;
             return home ? '<span><a href="'+esc(home[1])+'" target="_blank" rel="noopener">'+esc(home[0])+'</a></span>' : ''; })()
-    +(e.unregistered?'<span class="dim">run by the arena</span>':'<span><a href="https://github.com/Social-Atoms/social-sim-arena/blob/main/entrants/'+esc(e.base||id)+'.json" target="_blank" rel="noopener">registration file'+(e.inherited?' (base model)':'')+'</a></span>')
+    +(e.unregistered?'<span class="dim">run by the arena</span>':'<span><a href="https://github.com/assassin808/social-sim-arena-e2e-test/blob/main/entrants/'+esc(e.base||id)+'.json" target="_blank" rel="noopener">registration file'+(e.inherited?' (base model)':'')+'</a></span>')
     +'<span class="dim">id '+esc(id)+'</span></div></div>'
     +(e.method?'<p class="ent-method">'+esc(e.method)+(e.inherited?' <span class="dim">That describes the base model, <a href="#entrant/'+esc(e.base)+'">'+esc(forecasterName(e.base,data))+'</a>; this entry runs it with '+esc(variantWords(id))+'.</span>':'')+'</p>':'')+'</div>';
   // ---- left: how it performs ----
@@ -1205,7 +1205,7 @@ function renderQuestion(roundId){
   if(typeof syncHash==='function') syncHash();
 }
 // ---- one forecast: what was filed, when, against what, and the proof that it existed before the answer ----
-const REPO='https://github.com/Social-Atoms/social-sim-arena/blob/main/';
+const REPO='https://github.com/assassin808/social-sim-arena-e2e-test/blob/main/';
 function renderForecast(roundId, entrantId){
   const data=window.__data, host=document.getElementById('forecast-col'); if(!data||!host) return;
   const r=(data.rounds||[]).find(x=>x.round_id===roundId), e=(data.entrants||[]).find(x=>x.entrant_id===entrantId);
@@ -1856,7 +1856,7 @@ const SOURCE_DOC={yougov_approval:'yougov',yougov_profile:'yougov',mc_approval:'
   civiqs_approval:'civiqs',civiqs_angry:'civiqs',civiqs_econ_direction:'civiqs',civiqs_econ_now:'civiqs',civiqs_family_finances:'civiqs',civiqs_inflation_concern:'civiqs',civiqs_profile:'civiqs',civiqs_subgroups:'civiqs',
   hh_approval:'harvard-harris',umich_sentiment:'michigan',umich_party:'michigan',sce_inflation:'ny-fed-sce',aaii_sentiment:'aaii',
   trends_basket:'google-trends',search_interest:'google-trends',wiki_top10:'wikimedia',wiki_views:'wikimedia'};
-const sourceDocUrl=key=>SOURCE_DOC[key]?'https://github.com/Social-Atoms/social-sim-arena/blob/main/docs/sources/'+SOURCE_DOC[key]+'.md':null;
+const sourceDocUrl=key=>SOURCE_DOC[key]?'https://github.com/assassin808/social-sim-arena-e2e-test/blob/main/docs/sources/'+SOURCE_DOC[key]+'.md':null;
 function renderTaskHeader(data,key){
   const d = TASKS[key]||TASKS.agg;
   const group = TASK_GROUPS.find(g=>g.id===d.group);
@@ -3046,7 +3046,7 @@ Promise.allSettled([
 // The easter egg speaks in a browser's console only; the render tests run this script under a stub whose agent says so.
 if(!/ssa-render-check/.test((typeof navigator!=='undefined'&&navigator.userAgent)||'')){
 console.log("%c\n              \u25cf\n       /\\    /     Social Simulation Arena\n      /  \\  /      Can a simulator predict a public before it moves?\n     /    \\/\n    /\n","color:#15803d;font-family:monospace;font-size:12px");
-console.log("%cYou looked behind the board. Join us: cli@mit.edu \u00b7 github.com/Social-Atoms/social-sim-arena","color:#4f4e49;font-family:monospace");
+console.log("%cYou looked behind the board. Join us: cli@mit.edu \u00b7 github.com/assassin808/social-sim-arena-e2e-test","color:#4f4e49;font-family:monospace");
 }
 </script>
 </body>

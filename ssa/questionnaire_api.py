@@ -29,7 +29,7 @@ SUBMISSION_VERSION = "ssa-questionnaire-submission-v1"
 TERMS_VERSION = "ssa-participant-v1"
 MAX_BODY_BYTES = 512 * 1024
 TRACK_DIRECTORIES = {"agent": "registrations", "human": "human"}
-INTAKE_REPO = "Social-Atoms/social-sim-arena-intake"
+INTAKE_REPO = "assassin808/social-sim-arena-e2e-test-intake"
 INTAKE_API_VERSION = "2022-11-28"
 # One request can make both calls, so the pair has to fit the platform's
 # function budget with room left for validation.
