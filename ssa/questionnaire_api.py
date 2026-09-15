@@ -135,6 +135,8 @@ def open_rounds(data: dict[str, Any], now: datetime | None = None
         # the published batch deadline again on the serving path; old artifacts
         # without the new field are derived from the same canonical calendar.
         and _round_deadline(round_data) > now
+        and (not round_data.get("published_at")
+             or _parse_iso(round_data["published_at"]) <= now)
     ]
     return sorted(
         rounds,

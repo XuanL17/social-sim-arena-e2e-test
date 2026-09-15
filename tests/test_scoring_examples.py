@@ -230,7 +230,7 @@ def test_request_payload_shows_one_valid_request_and_expected_response():
 def test_left_navigation_moves_the_active_highlight():
     body = SITE.read_text()
     assert "document.querySelectorAll('.left a[href^=\"#\"]')" in body
-    assert "link.classList.toggle('on',link.hash===hash)" in body
+    assert "const on=link.hash===hash; link.classList.toggle('on',on)" in body
     assert "link.addEventListener('click',()=>setActiveSection(link.hash))" in body
     assert "window.addEventListener('hashchange',syncActiveSection)" in body
     assert "setActiveSection(location.hash||'#quickstart')" in body

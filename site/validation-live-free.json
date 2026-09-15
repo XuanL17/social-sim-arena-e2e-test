@@ -1,0 +1,1078 @@
+{
+  "run_at": "2026-09-15T20:21:25.366779+00:00",
+  "caller": "local-validator-to-real-vercel-backend",
+  "manifest_url": "https://social-sim-arena-e2e-test.vercel.app/api/v1/questionnaire",
+  "question_count": 99,
+  "selected_questions": [
+    {
+      "round_id": "civiqs-2026-w38-angry-share",
+      "board_id": "topline",
+      "question": "Civiqs daily tracker: percent of US registered voters who describe themselves as angry about the way things are going in the United States, as the dashboard shows it on Friday",
+      "target_type": "continuous_normal",
+      "unit": "percent",
+      "release_at": "2026-09-18T14:00:00Z",
+      "deadline": "2026-09-16T14:00:00Z",
+      "lock_at": "2026-09-16T14:00:00Z",
+      "resolution_rule": "dashboard Friday value, from the daily archive",
+      "resolution_source_url": null,
+      "latest_public_reference": {
+        "mean": 29.7,
+        "sd": 1.5,
+        "method": "persistence"
+      },
+      "answer_schema": {
+        "agent": {
+          "type": "object",
+          "required": [
+            "round_id",
+            "target_type",
+            "response"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "round_id": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9-]{2,63}$"
+            },
+            "target_type": {
+              "const": "continuous_normal"
+            },
+            "response": {
+              "type": "object",
+              "required": [
+                "mean",
+                "sd"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "mean": {
+                  "type": "number"
+                },
+                "sd": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "maximum": 50
+                }
+              }
+            }
+          }
+        },
+        "human": {
+          "type": "object",
+          "required": [
+            "round_id",
+            "target_type",
+            "response"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "round_id": {
+              "$ref": "#/definitions/round_id"
+            },
+            "target_type": {
+              "const": "continuous_normal"
+            },
+            "response": {
+              "type": "object",
+              "required": [
+                "value"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "value": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "round_id": "civiqs-profile-2026-w38",
+      "board_id": "profile",
+      "question": "Civiqs daily tracker, Trump net approval among registered voters, full 16-cell demographic profile, Friday Sep 18 dashboard values",
+      "target_type": "profile_energy",
+      "unit": "net points (approve minus disapprove)",
+      "release_at": "2026-09-18T22:00:00Z",
+      "deadline": "2026-09-16T22:00:00Z",
+      "lock_at": "2026-09-16T22:00:00Z",
+      "resolution_rule": "civiqs.com dashboard value on Friday for each of the sixteen demographic filters, from the daily archive",
+      "resolution_source_url": null,
+      "latest_public_reference": {
+        "civiqs_net_approval_dem": {
+          "mean": -95.9,
+          "sd": 1.5,
+          "method": "persistence"
+        },
+        "civiqs_net_approval_ind": {
+          "mean": -35.6,
+          "sd": 1.5,
+          "method": "persistence"
+        },
+        "civiqs_net_approval_rep": {
+          "mean": 66.8,
+          "sd": 1.5,
+          "method": "persistence"
+        },
+        "civiqs_net_approval_age_18_34": {
+          "mean": -49.4,
+          "sd": 1.5,
+          "method": "persistence"
+        },
+        "civiqs_net_approval_age_35_49": {
+          "mean": -35.1,
+          "sd": 1.5,
+          "method": "persistence"
+        },
+        "civiqs_net_approval_age_50_64": {
+          "mean": -7.9,
+          "sd": 1.5,
+          "method": "persistence"
+        },
+        "civiqs_net_approval_age_65_up": {
+          "mean": -9.0,
+          "sd": 1.5,
+          "method": "persistence"
+        },
+        "civiqs_net_approval_race_white": {
+          "mean": -10.9,
+          "sd": 1.5,
+          "method": "persistence"
+        },
+        "civiqs_net_approval_race_black": {
+          "mean": -81.8,
+          "sd": 1.5,
+          "method": "persistence"
+        },
+        "civiqs_net_approval_race_hispanic": {
+          "mean": -37.8,
+          "sd": 1.5,
+          "method": "persistence"
+        },
+        "civiqs_net_approval_race_other": {
+          "mean": -40.5,
+          "sd": 1.5,
+          "method": "persistence"
+        },
+        "civiqs_net_approval_edu_noncollege": {
+          "mean": -17.4,
+          "sd": 1.5,
+          "method": "persistence"
+        },
+        "civiqs_net_approval_edu_college": {
+          "mean": -30.8,
+          "sd": 1.5,
+          "method": "persistence"
+        },
+        "civiqs_net_approval_edu_postgrad": {
+          "mean": -48.5,
+          "sd": 1.5,
+          "method": "persistence"
+        },
+        "civiqs_net_approval_male": {
+          "mean": -13.2,
+          "sd": 1.5,
+          "method": "persistence"
+        },
+        "civiqs_net_approval_female": {
+          "mean": -35.2,
+          "sd": 1.5,
+          "method": "persistence"
+        }
+      },
+      "answer_schema": {
+        "agent": {
+          "type": "object",
+          "required": [
+            "round_id",
+            "target_type",
+            "response"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "round_id": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9-]{2,63}$"
+            },
+            "target_type": {
+              "const": "profile_energy"
+            },
+            "response": {
+              "type": "object",
+              "required": [
+                "profile"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "profile": {
+                  "type": "object",
+                  "minProperties": 2,
+                  "propertyNames": {
+                    "pattern": "^[a-z][a-z0-9_]{2,63}$"
+                  },
+                  "additionalProperties": {
+                    "type": "object",
+                    "required": [
+                      "mean",
+                      "sd"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "mean": {
+                        "type": "number"
+                      },
+                      "sd": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "maximum": 50
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "human": {
+          "type": "object",
+          "required": [
+            "round_id",
+            "target_type",
+            "response"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "round_id": {
+              "$ref": "#/definitions/round_id"
+            },
+            "target_type": {
+              "const": "profile_energy"
+            },
+            "response": {
+              "type": "object",
+              "required": [
+                "profile"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "profile": {
+                  "type": "object",
+                  "minProperties": 2,
+                  "propertyNames": {
+                    "pattern": "^[a-z][a-z0-9_]{2,63}$"
+                  },
+                  "additionalProperties": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "cells": [
+        "civiqs_net_approval_dem",
+        "civiqs_net_approval_ind",
+        "civiqs_net_approval_rep",
+        "civiqs_net_approval_age_18_34",
+        "civiqs_net_approval_age_35_49",
+        "civiqs_net_approval_age_50_64",
+        "civiqs_net_approval_age_65_up",
+        "civiqs_net_approval_race_white",
+        "civiqs_net_approval_race_black",
+        "civiqs_net_approval_race_hispanic",
+        "civiqs_net_approval_race_other",
+        "civiqs_net_approval_edu_noncollege",
+        "civiqs_net_approval_edu_college",
+        "civiqs_net_approval_edu_postgrad",
+        "civiqs_net_approval_male",
+        "civiqs_net_approval_female"
+      ],
+      "profile": {
+        "cells": [
+          "civiqs_net_approval_dem",
+          "civiqs_net_approval_ind",
+          "civiqs_net_approval_rep",
+          "civiqs_net_approval_age_18_34",
+          "civiqs_net_approval_age_35_49",
+          "civiqs_net_approval_age_50_64",
+          "civiqs_net_approval_age_65_up",
+          "civiqs_net_approval_race_white",
+          "civiqs_net_approval_race_black",
+          "civiqs_net_approval_race_hispanic",
+          "civiqs_net_approval_race_other",
+          "civiqs_net_approval_edu_noncollege",
+          "civiqs_net_approval_edu_college",
+          "civiqs_net_approval_edu_postgrad",
+          "civiqs_net_approval_male",
+          "civiqs_net_approval_female"
+        ],
+        "labels": {
+          "civiqs_net_approval_dem": "Civiqs Trump net approval, Democrats",
+          "civiqs_net_approval_ind": "Civiqs Trump net approval, independents",
+          "civiqs_net_approval_rep": "Civiqs Trump net approval, Republicans",
+          "civiqs_net_approval_age_18_34": "Civiqs Trump net approval, adults 18-34",
+          "civiqs_net_approval_age_35_49": "Civiqs Trump net approval, adults 35-49",
+          "civiqs_net_approval_age_50_64": "Civiqs Trump net approval, adults 50-64",
+          "civiqs_net_approval_age_65_up": "Civiqs Trump net approval, adults 65 and older",
+          "civiqs_net_approval_race_white": "Civiqs Trump net approval, White registered voters",
+          "civiqs_net_approval_race_black": "Civiqs Trump net approval, Black registered voters",
+          "civiqs_net_approval_race_hispanic": "Civiqs Trump net approval, Hispanic/Latino registered voters",
+          "civiqs_net_approval_race_other": "Civiqs Trump net approval, registered voters of other races",
+          "civiqs_net_approval_edu_noncollege": "Civiqs Trump net approval, non-college graduates",
+          "civiqs_net_approval_edu_college": "Civiqs Trump net approval, college graduates",
+          "civiqs_net_approval_edu_postgrad": "Civiqs Trump net approval, postgraduates",
+          "civiqs_net_approval_male": "Civiqs Trump net approval, men",
+          "civiqs_net_approval_female": "Civiqs Trump net approval, women"
+        },
+        "history_points": {
+          "civiqs_net_approval_dem": 85,
+          "civiqs_net_approval_ind": 85,
+          "civiqs_net_approval_rep": 85,
+          "civiqs_net_approval_age_18_34": 85,
+          "civiqs_net_approval_age_35_49": 85,
+          "civiqs_net_approval_age_50_64": 85,
+          "civiqs_net_approval_age_65_up": 85,
+          "civiqs_net_approval_race_white": 85,
+          "civiqs_net_approval_race_black": 85,
+          "civiqs_net_approval_race_hispanic": 85,
+          "civiqs_net_approval_race_other": 85,
+          "civiqs_net_approval_edu_noncollege": 85,
+          "civiqs_net_approval_edu_college": 85,
+          "civiqs_net_approval_edu_postgrad": 85,
+          "civiqs_net_approval_male": 85,
+          "civiqs_net_approval_female": 85
+        },
+        "baselines": {
+          "persistence": {
+            "civiqs_net_approval_dem": {
+              "mean": -95.9,
+              "sd": 1.5,
+              "method": "persistence"
+            },
+            "civiqs_net_approval_ind": {
+              "mean": -35.6,
+              "sd": 1.5,
+              "method": "persistence"
+            },
+            "civiqs_net_approval_rep": {
+              "mean": 66.8,
+              "sd": 1.5,
+              "method": "persistence"
+            },
+            "civiqs_net_approval_age_18_34": {
+              "mean": -49.4,
+              "sd": 1.5,
+              "method": "persistence"
+            },
+            "civiqs_net_approval_age_35_49": {
+              "mean": -35.1,
+              "sd": 1.5,
+              "method": "persistence"
+            },
+            "civiqs_net_approval_age_50_64": {
+              "mean": -7.9,
+              "sd": 1.5,
+              "method": "persistence"
+            },
+            "civiqs_net_approval_age_65_up": {
+              "mean": -9.0,
+              "sd": 1.5,
+              "method": "persistence"
+            },
+            "civiqs_net_approval_race_white": {
+              "mean": -10.9,
+              "sd": 1.5,
+              "method": "persistence"
+            },
+            "civiqs_net_approval_race_black": {
+              "mean": -81.8,
+              "sd": 1.5,
+              "method": "persistence"
+            },
+            "civiqs_net_approval_race_hispanic": {
+              "mean": -37.8,
+              "sd": 1.5,
+              "method": "persistence"
+            },
+            "civiqs_net_approval_race_other": {
+              "mean": -40.5,
+              "sd": 1.5,
+              "method": "persistence"
+            },
+            "civiqs_net_approval_edu_noncollege": {
+              "mean": -17.4,
+              "sd": 1.5,
+              "method": "persistence"
+            },
+            "civiqs_net_approval_edu_college": {
+              "mean": -30.8,
+              "sd": 1.5,
+              "method": "persistence"
+            },
+            "civiqs_net_approval_edu_postgrad": {
+              "mean": -48.5,
+              "sd": 1.5,
+              "method": "persistence"
+            },
+            "civiqs_net_approval_male": {
+              "mean": -13.2,
+              "sd": 1.5,
+              "method": "persistence"
+            },
+            "civiqs_net_approval_female": {
+              "mean": -35.2,
+              "sd": 1.5,
+              "method": "persistence"
+            }
+          }
+        }
+      }
+    },
+    {
+      "round_id": "wiki-top10-2026-09-27",
+      "board_id": "ranking",
+      "question": "The ordered top-10 articles on the English Wikipedia by pageviews for the week Mon Sep 21 - Sun Sep 27, 2026. The seven daily top-1000 lists published by Wikimedia are summed per article and ranked; Main_Page and every non-article namespace (Special:, Wikipedia:, Portal:, Help:, File:, Template:, Category:, Draft:, User:, Talk: and their _talk: variants) are excluded. Give the ten article titles in order, rank 1 first.",
+      "target_type": "ranking_list",
+      "unit": "ordered list of 10 en.wikipedia article titles, canonical underscore form, rank 1 first",
+      "release_at": "2026-09-29T14:00:00Z",
+      "deadline": "2026-09-18T14:00:00Z",
+      "lock_at": "2026-09-18T14:00:00Z",
+      "resolution_rule": "Wikimedia daily top endpoint (top/en.wikipedia/all-access), the week's seven archived daily lists summed per article, exclusion rule main_page_and_namespaces_v1 applied, top 10 by weekly total, ties broken by title ascending. An article absent from a day's top-1000 contributes zero for that day.",
+      "resolution_source_url": null,
+      "latest_public_reference": {
+        "items": [
+          "Elizabeth_Holmes",
+          "September_11_attacks",
+          "Killing_of_the_Clancy_children",
+          "Ben_Shelton",
+          "Elena_Rybakina",
+          "Deaths_in_2026",
+          "Hanuman_Ansh",
+          "Aryna_Sabalenka",
+          "Mirzapur_(film)",
+          "Alexander_Zverev"
+        ],
+        "observed_date": "2026-09-13",
+        "method": "persistence"
+      },
+      "answer_schema": {
+        "agent": {
+          "type": "object",
+          "required": [
+            "round_id",
+            "target_type",
+            "response"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "round_id": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9-]{2,63}$"
+            },
+            "target_type": {
+              "const": "ranking_list"
+            },
+            "response": {
+              "type": "object",
+              "required": [
+                "ranking"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "ranking": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 50,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 256
+                  }
+                }
+              }
+            }
+          }
+        },
+        "human": {
+          "type": "object",
+          "required": [
+            "round_id",
+            "target_type",
+            "response"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "round_id": {
+              "$ref": "#/definitions/round_id"
+            },
+            "target_type": {
+              "const": "ranking_list"
+            },
+            "response": {
+              "type": "object",
+              "required": [
+                "ranking"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "ranking": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 50,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 256
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "ranking": {
+        "kind": "wiki_top10",
+        "length": 10,
+        "loss": "rbo",
+        "week_start": "2026-09-21",
+        "week_end": "2026-09-27",
+        "rbo_p": 0.9,
+        "exclusions": "main_page_and_namespaces_v1",
+        "history_weeks": 5,
+        "baselines": {
+          "persistence": {
+            "items": [
+              "Elizabeth_Holmes",
+              "September_11_attacks",
+              "Killing_of_the_Clancy_children",
+              "Ben_Shelton",
+              "Elena_Rybakina",
+              "Deaths_in_2026",
+              "Hanuman_Ansh",
+              "Aryna_Sabalenka",
+              "Mirzapur_(film)",
+              "Alexander_Zverev"
+            ],
+            "observed_date": "2026-09-13",
+            "method": "persistence"
+          }
+        }
+      }
+    }
+  ],
+  "attempts": [
+    {
+      "model": "liquid/lfm-2.5-2.6b:free",
+      "round_id": "civiqs-2026-w38-angry-share",
+      "shape": "continuous_normal",
+      "http_status": 200,
+      "forecast": {
+        "mean": 29.7,
+        "sd": 1.5
+      },
+      "generation_id": "gen-1789503686-VSKr2K5tdTl3QYiSrgAr",
+      "cost": "0",
+      "backend_deployment": "social-sim-arena-e2e-agent-pyht2dkfl-yangs-projects-36e22525.vercel.app",
+      "replay": "passed",
+      "status": "passed",
+      "current_time_acceptance": {
+        "schema_version": "1.0.0",
+        "batch_id": "batch-2026-09-14",
+        "entrant_id": "e2e_remote_backend",
+        "deadline": "2026-09-16T14:00:00Z",
+        "received_at": "2026-09-15T20:21:30Z",
+        "bundle_sha256": "ef531bd75a086503c89bee61023094deef1c3203bf174c31f4f352102844d8bd",
+        "response_sha256": "ab3990a2326bde59ae77578e4d6613b720c06c48fab39bd399b62e73f1dc26c5",
+        "accepted": 1,
+        "rejected": 0,
+        "unanswered": []
+      },
+      "late_rejection": [
+        {
+          "round_id": "civiqs-2026-w38-angry-share",
+          "status": "rejected",
+          "messages": [
+            "civiqs-2026-w38-angry-share: this question closed at 2026-09-16T14:00:00Z (batch-2026-09-14); this payload arrived 2026-09-16T14:00:01Z"
+          ],
+          "deadline": "2026-09-16T14:00:00Z",
+          "horizon_days": 2.0,
+          "reason": "late"
+        }
+      ],
+      "seconds": 4.94,
+      "verified_cost": 0,
+      "verified_model": "liquid/lfm-2.5-2.6b-20260811:free"
+    },
+    {
+      "model": "liquid/lfm-2.5-2.6b:free",
+      "round_id": "civiqs-profile-2026-w38",
+      "shape": "profile_energy",
+      "http_status": 200,
+      "forecast": {
+        "profile": {
+          "civiqs_net_approval_dem": {
+            "mean": -95.9,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_ind": {
+            "mean": -35.6,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_rep": {
+            "mean": 66.8,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_age_18_34": {
+            "mean": -49.4,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_age_35_49": {
+            "mean": -35.1,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_age_50_64": {
+            "mean": -7.9,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_age_65_up": {
+            "mean": -9.0,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_race_white": {
+            "mean": -10.9,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_race_black": {
+            "mean": -81.8,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_race_hispanic": {
+            "mean": -37.8,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_race_other": {
+            "mean": -40.5,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_edu_noncollege": {
+            "mean": -17.4,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_edu_college": {
+            "mean": -30.8,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_edu_postgrad": {
+            "mean": -48.5,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_male": {
+            "mean": -13.2,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_female": {
+            "mean": -35.2,
+            "sd": 1.5
+          }
+        }
+      },
+      "generation_id": "gen-1789503690-ufVv5QeaC0uSugNoqS1v",
+      "cost": "0",
+      "backend_deployment": "social-sim-arena-e2e-agent-pyht2dkfl-yangs-projects-36e22525.vercel.app",
+      "replay": "passed",
+      "status": "passed",
+      "current_time_acceptance": {
+        "schema_version": "1.0.0",
+        "batch_id": "batch-2026-09-14",
+        "entrant_id": "e2e_remote_backend",
+        "deadline": "2026-09-16T22:00:00Z",
+        "received_at": "2026-09-15T20:21:50Z",
+        "bundle_sha256": "a04bb048e154e5488b58faaf33a4a2c7a020044f877b2fe08ee5439eaec7e05b",
+        "response_sha256": "501a43687aafe1435e36f22b1c771925d6276bcebc7ac65a754a0a4699c2e224",
+        "accepted": 1,
+        "rejected": 0,
+        "unanswered": []
+      },
+      "late_rejection": [
+        {
+          "round_id": "civiqs-profile-2026-w38",
+          "status": "rejected",
+          "messages": [
+            "civiqs-profile-2026-w38: this question closed at 2026-09-16T22:00:00Z (batch-2026-09-14); this payload arrived 2026-09-16T22:00:01Z"
+          ],
+          "deadline": "2026-09-16T22:00:00Z",
+          "horizon_days": 2.0,
+          "reason": "late"
+        }
+      ],
+      "seconds": 20.18,
+      "verified_cost": 0,
+      "verified_model": "liquid/lfm-2.5-2.6b-20260811:free"
+    },
+    {
+      "model": "liquid/lfm-2.5-2.6b:free",
+      "round_id": "wiki-top10-2026-09-27",
+      "shape": "ranking_list",
+      "http_status": 502,
+      "status": "failed",
+      "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://social-sim-arena-e2e-agent.vercel.app/forecast",
+      "seconds": 12.38
+    },
+    {
+      "model": "nex-agi/nex-n2.5-mini:free",
+      "round_id": "civiqs-2026-w38-angry-share",
+      "shape": "continuous_normal",
+      "http_status": 502,
+      "status": "failed",
+      "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://social-sim-arena-e2e-agent.vercel.app/forecast",
+      "seconds": 45.67
+    },
+    {
+      "model": "nex-agi/nex-n2.5-mini:free",
+      "round_id": "civiqs-profile-2026-w38",
+      "shape": "profile_energy",
+      "http_status": 200,
+      "forecast": {
+        "profile": {
+          "civiqs_net_approval_age_18_34": {
+            "mean": -49.4,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_age_35_49": {
+            "mean": -35.1,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_age_50_64": {
+            "mean": -7.9,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_age_65_up": {
+            "mean": -9.0,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_dem": {
+            "mean": -95.9,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_edu_college": {
+            "mean": -30.8,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_edu_noncollege": {
+            "mean": -17.4,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_edu_postgrad": {
+            "mean": -48.5,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_female": {
+            "mean": -35.2,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_ind": {
+            "mean": -35.6,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_male": {
+            "mean": -13.2,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_race_black": {
+            "mean": -81.8,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_race_hispanic": {
+            "mean": -37.8,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_race_other": {
+            "mean": -40.5,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_race_white": {
+            "mean": -10.9,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_rep": {
+            "mean": 66.8,
+            "sd": 1.5
+          }
+        }
+      },
+      "generation_id": "gen-1789503768-sZfKIFAxPNaigfAIaq53",
+      "cost": "0",
+      "backend_deployment": "social-sim-arena-e2e-agent-pyht2dkfl-yangs-projects-36e22525.vercel.app",
+      "replay": "passed",
+      "status": "passed",
+      "current_time_acceptance": {
+        "schema_version": "1.0.0",
+        "batch_id": "batch-2026-09-14",
+        "entrant_id": "e2e_remote_backend",
+        "deadline": "2026-09-16T22:00:00Z",
+        "received_at": "2026-09-15T20:22:57Z",
+        "bundle_sha256": "a04bb048e154e5488b58faaf33a4a2c7a020044f877b2fe08ee5439eaec7e05b",
+        "response_sha256": "501a43687aafe1435e36f22b1c771925d6276bcebc7ac65a754a0a4699c2e224",
+        "accepted": 1,
+        "rejected": 0,
+        "unanswered": []
+      },
+      "late_rejection": [
+        {
+          "round_id": "civiqs-profile-2026-w38",
+          "status": "rejected",
+          "messages": [
+            "civiqs-profile-2026-w38: this question closed at 2026-09-16T22:00:00Z (batch-2026-09-14); this payload arrived 2026-09-16T22:00:01Z"
+          ],
+          "deadline": "2026-09-16T22:00:00Z",
+          "horizon_days": 2.0,
+          "reason": "late"
+        }
+      ],
+      "seconds": 8.72,
+      "verified_cost": 0,
+      "verified_model": "nex-agi/nex-n2.5-mini-20260908:free"
+    },
+    {
+      "model": "nex-agi/nex-n2.5-mini:free",
+      "round_id": "wiki-top10-2026-09-27",
+      "shape": "ranking_list",
+      "http_status": 502,
+      "status": "failed",
+      "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://social-sim-arena-e2e-agent.vercel.app/forecast",
+      "seconds": 55.12
+    },
+    {
+      "model": "google/gemma-4-31b-it:free",
+      "round_id": "civiqs-2026-w38-angry-share",
+      "shape": "continuous_normal",
+      "http_status": 502,
+      "status": "failed",
+      "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://social-sim-arena-e2e-agent.vercel.app/forecast",
+      "seconds": 0.75
+    },
+    {
+      "model": "google/gemma-4-31b-it:free",
+      "round_id": "civiqs-profile-2026-w38",
+      "shape": "profile_energy",
+      "http_status": 502,
+      "status": "failed",
+      "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://social-sim-arena-e2e-agent.vercel.app/forecast",
+      "seconds": 0.45
+    },
+    {
+      "model": "google/gemma-4-31b-it:free",
+      "round_id": "wiki-top10-2026-09-27",
+      "shape": "ranking_list",
+      "http_status": 502,
+      "status": "failed",
+      "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://social-sim-arena-e2e-agent.vercel.app/forecast",
+      "seconds": 0.44
+    },
+    {
+      "model": "dots-studio/dots-3-note-preview:free",
+      "round_id": "civiqs-2026-w38-angry-share",
+      "shape": "continuous_normal",
+      "http_status": 200,
+      "forecast": {
+        "mean": 29.7,
+        "sd": 1.5
+      },
+      "generation_id": "gen-1789503834-EAMl1MgxintlfwQe2I1q",
+      "cost": "0",
+      "backend_deployment": "social-sim-arena-e2e-agent-pyht2dkfl-yangs-projects-36e22525.vercel.app",
+      "replay": "passed",
+      "status": "passed",
+      "current_time_acceptance": {
+        "schema_version": "1.0.0",
+        "batch_id": "batch-2026-09-14",
+        "entrant_id": "e2e_remote_backend",
+        "deadline": "2026-09-16T14:00:00Z",
+        "received_at": "2026-09-15T20:23:59Z",
+        "bundle_sha256": "ef531bd75a086503c89bee61023094deef1c3203bf174c31f4f352102844d8bd",
+        "response_sha256": "ab3990a2326bde59ae77578e4d6613b720c06c48fab39bd399b62e73f1dc26c5",
+        "accepted": 1,
+        "rejected": 0,
+        "unanswered": []
+      },
+      "late_rejection": [
+        {
+          "round_id": "civiqs-2026-w38-angry-share",
+          "status": "rejected",
+          "messages": [
+            "civiqs-2026-w38-angry-share: this question closed at 2026-09-16T14:00:00Z (batch-2026-09-14); this payload arrived 2026-09-16T14:00:01Z"
+          ],
+          "deadline": "2026-09-16T14:00:00Z",
+          "horizon_days": 2.0,
+          "reason": "late"
+        }
+      ],
+      "seconds": 5.29,
+      "verified_cost": 0,
+      "verified_model": "dots-studio/dots-3-note-preview-20260813:free"
+    },
+    {
+      "model": "dots-studio/dots-3-note-preview:free",
+      "round_id": "civiqs-profile-2026-w38",
+      "shape": "profile_energy",
+      "http_status": 200,
+      "forecast": {
+        "profile": {
+          "civiqs_net_approval_age_18_34": {
+            "mean": -49.4,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_age_35_49": {
+            "mean": -35.1,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_age_50_64": {
+            "mean": -7.9,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_age_65_up": {
+            "mean": -9.0,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_dem": {
+            "mean": -95.9,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_edu_college": {
+            "mean": -30.8,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_edu_noncollege": {
+            "mean": -17.4,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_edu_postgrad": {
+            "mean": -48.5,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_female": {
+            "mean": -35.2,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_ind": {
+            "mean": -35.6,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_male": {
+            "mean": -13.2,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_race_black": {
+            "mean": -81.8,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_race_hispanic": {
+            "mean": -37.8,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_race_other": {
+            "mean": -40.5,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_race_white": {
+            "mean": -10.9,
+            "sd": 1.5
+          },
+          "civiqs_net_approval_rep": {
+            "mean": 66.8,
+            "sd": 1.5
+          }
+        }
+      },
+      "generation_id": "gen-1789503839-XrhxgyLo1OcWB4LsRJ58",
+      "cost": "0",
+      "backend_deployment": "social-sim-arena-e2e-agent-pyht2dkfl-yangs-projects-36e22525.vercel.app",
+      "replay": "passed",
+      "status": "passed",
+      "current_time_acceptance": {
+        "schema_version": "1.0.0",
+        "batch_id": "batch-2026-09-14",
+        "entrant_id": "e2e_remote_backend",
+        "deadline": "2026-09-16T22:00:00Z",
+        "received_at": "2026-09-15T20:24:18Z",
+        "bundle_sha256": "a04bb048e154e5488b58faaf33a4a2c7a020044f877b2fe08ee5439eaec7e05b",
+        "response_sha256": "501a43687aafe1435e36f22b1c771925d6276bcebc7ac65a754a0a4699c2e224",
+        "accepted": 1,
+        "rejected": 0,
+        "unanswered": []
+      },
+      "late_rejection": [
+        {
+          "round_id": "civiqs-profile-2026-w38",
+          "status": "rejected",
+          "messages": [
+            "civiqs-profile-2026-w38: this question closed at 2026-09-16T22:00:00Z (batch-2026-09-14); this payload arrived 2026-09-16T22:00:01Z"
+          ],
+          "deadline": "2026-09-16T22:00:00Z",
+          "horizon_days": 2.0,
+          "reason": "late"
+        }
+      ],
+      "seconds": 19.36,
+      "verified_cost": 0,
+      "verified_model": "dots-studio/dots-3-note-preview-20260813:free"
+    },
+    {
+      "model": "dots-studio/dots-3-note-preview:free",
+      "round_id": "wiki-top10-2026-09-27",
+      "shape": "ranking_list",
+      "http_status": 200,
+      "forecast": {
+        "ranking": [
+          "September_11_attacks",
+          "Deaths_in_2026",
+          "Killing_of_the_Clancy_children",
+          "Elizabeth_Holmes",
+          "Aryna_Sabalenka",
+          "Alexander_Zverev",
+          "Ben_Shelton",
+          "Elena_Rybakina",
+          "Mirzapur_(film)",
+          "Hanuman_Ansh"
+        ]
+      },
+      "generation_id": "gen-1789503858-dbhgFfj4RRPtg1KOLcPF",
+      "cost": "0",
+      "backend_deployment": "social-sim-arena-e2e-agent-pyht2dkfl-yangs-projects-36e22525.vercel.app",
+      "replay": "passed",
+      "status": "passed",
+      "current_time_acceptance": {
+        "schema_version": "1.0.0",
+        "batch_id": "batch-2026-09-14",
+        "entrant_id": "e2e_remote_backend",
+        "deadline": "2026-09-18T14:00:00Z",
+        "received_at": "2026-09-15T20:24:35Z",
+        "bundle_sha256": "a68b5d996aeb963cc17c58fc59b5858ccedd1ea365186ecde201a179018eec28",
+        "response_sha256": "3c70f44bde1e38488d0ccbc5c6972eb92378c49ec00585090e2b3f2fdc4133de",
+        "accepted": 1,
+        "rejected": 0,
+        "unanswered": []
+      },
+      "late_rejection": [
+        {
+          "round_id": "wiki-top10-2026-09-27",
+          "status": "rejected",
+          "messages": [
+            "wiki-top10-2026-09-27: this question closed at 2026-09-18T14:00:00Z (batch-2026-09-14); this payload arrived 2026-09-18T14:00:01Z"
+          ],
+          "deadline": "2026-09-18T14:00:00Z",
+          "horizon_days": 11.0,
+          "reason": "late"
+        }
+      ],
+      "seconds": 16.42,
+      "verified_cost": 0,
+      "verified_model": "dots-studio/dots-3-note-preview-20260813:free"
+    }
+  ],
+  "future_scoring": "pending real outcomes; no fabricated scores"
+}

@@ -340,7 +340,7 @@ byId('api-test').addEventListener('click', async () => {
     const body = parseAgentReply(data);
     s3.state = 'good'; s3.detail = 'forecast mean '+body.forecast.mean+', sd '+body.forecast.sd+(body.reasoning_trace?' · reasoning_trace present':''); paintResults();
     apiProbePassed = true;
-    status.className = 'status good'; status.textContent = 'Test passed! Your API is compatible with the Arena. Fill in the model information below, then submit.';
+    status.className = 'status good'; status.textContent = 'Scalar test passed. Profile and ranking compatibility still require separate tests. Fill in the model information below, then submit.';
   } catch (error) {
     const last = results[results.length-1];
     if (last && last.state === 'wait') { last.state = 'bad'; last.detail = esc(error.message); }

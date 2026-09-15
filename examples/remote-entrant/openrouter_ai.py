@@ -6,6 +6,7 @@ import os
 import requests
 
 BASE = 'https://openrouter.ai/api/v1'
+TEST_MODELS = {'liquid/lfm-2.5-2.6b:free', 'nex-agi/nex-n2.5-mini:free', 'google/gemma-4-31b-it:free', 'dots-studio/dots-3-note-preview:free'}
 
 
 def validate_forecast(fc, round_spec):
@@ -49,7 +50,9 @@ def forecast_schema(r):
 
 
 def infer(prompt, cache=None, session=None):
-    model = os.environ.get('OPENROUTER_MODEL', '')
+    model = prompt.get('e2e_model', os.environ.get('OPENROUTER_MODEL', ''))
+    if 'e2e_model' in prompt and model not in TEST_MODELS:
+        raise ValueError('Unsupported test model')
     key = os.environ.get('OPENROUTER_API_KEY', '')
     if not model.endswith(':free') or not key:
         raise RuntimeError('A :free model and OpenRouter key must be configured')

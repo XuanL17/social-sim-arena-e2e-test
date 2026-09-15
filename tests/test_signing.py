@@ -179,7 +179,7 @@ def test_a_registration_is_edited_only_by_its_github_owner_or_a_maintainer():
     with Repo() as repo:
         new = {"entrant_id": "acme", "name": "Acme v2", "type": "firm", "method": "m", "github": "AcmeBot"}
         assert vs.check_entrant_owner("entrants/acme.json", new, "acmebot", "main") is None, "owner, case-insensitive"
-        assert vs.check_entrant_owner("entrants/acme.json", new, "jajamoa", "main") is None, "maintainer"
+        assert vs.check_entrant_owner("entrants/acme.json", new, next(iter(vs.MAINTAINERS)), "main") is None, "maintainer"
         assert refused(vs.check_entrant_owner, "entrants/acme.json", new, "someone-else", "main")
         stolen = dict(new, github="someone-else")
         assert refused(vs.check_entrant_owner, "entrants/acme.json", stolen, "someone-else", "main"), \
@@ -214,8 +214,8 @@ def test_the_arenas_own_entrant_names_cannot_be_registered_by_anyone_else():
             assert refused(vs.check_entrant_owner, f"entrants/{taken}.json",
                            doc, "outsider", "main"), taken
         # A maintainer must still be able to give an arena entry its record.
-        doc = {"entrant_id": "kimi", "name": "N", "type": "llm", "github": "jajamoa"}
-        assert vs.check_entrant_owner("entrants/kimi.json", doc, "jajamoa", "main") is None
+        doc = {"entrant_id": "kimi", "name": "N", "type": "llm", "github": next(iter(vs.MAINTAINERS))}
+        assert vs.check_entrant_owner("entrants/kimi.json", doc, next(iter(vs.MAINTAINERS)), "main") is None
         # And a name that merely starts with the same letters is fine.
         ok = {"entrant_id": "kimono-labs", "name": "N", "type": "participant",
               "github": "outsider", "route": route}
@@ -270,7 +270,7 @@ def test_a_participant_endpoint_is_never_followed_to_another_host():
 def test_forecasts_are_filed_only_by_the_entrant_owner():
     with Repo() as repo:
         assert vs.check_forecast_owner("forecasts/r1/acme.json", "acme", "acmebot", "main") is None
-        assert vs.check_forecast_owner("forecasts/r1/acme.json", "acme", "ZhenzeMo", "main") is None
+        assert vs.check_forecast_owner("forecasts/r1/acme.json", "acme", next(iter(vs.MAINTAINERS)), "main") is None
         assert refused(vs.check_forecast_owner, "forecasts/r1/acme.json", "acme", "someone-else", "main")
         assert refused(vs.check_forecast_owner, "forecasts/r1/nobody.json", "nobody", "someone-else", "main"), \
             "no registration, no forecast"
@@ -318,7 +318,7 @@ def test_the_bot_merges_only_registration_files():
 
 
 def test_the_auto_merge_workflow_runs_in_the_base_repository_and_never_checks_out_the_pull_request():
-    with open(os.path.join(ROOT, ".github", "workflows", "auto-merge.yml")) as fh:
+    with open(os.path.join(ROOT, ".github", "workflows", "auto-merge.yml.disabled")) as fh:
         wf = fh.read()
     assert "workflow_run:" in wf and "validate-submissions" in wf
     assert "ref: main" in wf, "the tools that judge a pull request come from main"
@@ -329,7 +329,7 @@ def test_the_auto_merge_workflow_runs_in_the_base_repository_and_never_checks_ou
     with open(os.path.join(ROOT, ".github", "workflows", "validate.yml")) as fh:
         v = fh.read()
     assert "--author" in v and "--base" in v, "PR-time validation must check ownership"
-    with open(os.path.join(ROOT, ".github", "workflows", "refresh.yml")) as fh:
+    with open(os.path.join(ROOT, ".github", "workflows", "refresh.yml.disabled")) as fh:
         r = fh.read()
     assert "SSA_SIGNING_KEY: ${{ secrets.SSA_SIGNING_KEY }}" in r
     assert "SSA_ENTRANT_KEY" not in r and "INTAKE_REPO_TOKEN" not in r

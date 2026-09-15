@@ -1,0 +1,1087 @@
+{
+  "at": "2026-09-15T20:19:04Z",
+  "snapshot_generated_at": "2026-09-15T05:04:07Z",
+  "manifest_count": 99,
+  "upstream_question_count": 151,
+  "not_yet_published_count": 82,
+  "missing_source_url_count": 99,
+  "wording_matches_upstream_count": 99,
+  "scalar_score_recomputations": 1911,
+  "scalar_score_mismatches": [],
+  "source_health": [
+    {
+      "source": "aaii",
+      "state": "ok",
+      "fetched_days": -0.0,
+      "changed_days": -0.0,
+      "budget_fetch_days": 3,
+      "budget_change_days": 12,
+      "url": "https://www.aaii.com/sentimentsurvey/sent_results",
+      "file": "sources/aaii/2026-09-15.html"
+    },
+    {
+      "source": "civiqs",
+      "state": "failing",
+      "fetched_days": 6.2,
+      "changed_days": 14.2,
+      "budget_fetch_days": 2,
+      "budget_change_days": 4,
+      "url": null,
+      "file": null,
+      "trackers": 22,
+      "tracker_health": [
+        {
+          "key": "approve_president_trump_2025",
+          "fetched_days": 6.2,
+          "changed_days": 7.2,
+          "change_budget_days": 4,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-09-08"
+        },
+        {
+          "key": "approve_president_trump_2025.age-18-34",
+          "fetched_days": 6.2,
+          "changed_days": 7.2,
+          "change_budget_days": 4,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-09-08"
+        },
+        {
+          "key": "approve_president_trump_2025.age-35-49",
+          "fetched_days": 6.2,
+          "changed_days": 7.2,
+          "change_budget_days": 4,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-09-08"
+        },
+        {
+          "key": "approve_president_trump_2025.age-50-64",
+          "fetched_days": 6.2,
+          "changed_days": 7.2,
+          "change_budget_days": 4,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-09-08"
+        },
+        {
+          "key": "approve_president_trump_2025.age-65_",
+          "fetched_days": 6.2,
+          "changed_days": 7.2,
+          "change_budget_days": 4,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-09-08"
+        },
+        {
+          "key": "approve_president_trump_2025.education-College_Graduate",
+          "fetched_days": 6.2,
+          "changed_days": 7.2,
+          "change_budget_days": 4,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-09-08"
+        },
+        {
+          "key": "approve_president_trump_2025.education-Non-College_Graduate",
+          "fetched_days": 6.2,
+          "changed_days": 7.2,
+          "change_budget_days": 4,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-09-08"
+        },
+        {
+          "key": "approve_president_trump_2025.education-Postgraduate",
+          "fetched_days": 6.2,
+          "changed_days": 7.2,
+          "change_budget_days": 4,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-09-08"
+        },
+        {
+          "key": "approve_president_trump_2025.gender-Female",
+          "fetched_days": 6.2,
+          "changed_days": 7.2,
+          "change_budget_days": 4,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-09-08"
+        },
+        {
+          "key": "approve_president_trump_2025.gender-Male",
+          "fetched_days": 6.2,
+          "changed_days": 7.2,
+          "change_budget_days": 4,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-09-08"
+        },
+        {
+          "key": "approve_president_trump_2025.party-Democrat",
+          "fetched_days": 6.2,
+          "changed_days": 7.2,
+          "change_budget_days": 4,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-09-08"
+        },
+        {
+          "key": "approve_president_trump_2025.party-Independent",
+          "fetched_days": 6.2,
+          "changed_days": 7.2,
+          "change_budget_days": 4,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-09-08"
+        },
+        {
+          "key": "approve_president_trump_2025.party-Republican",
+          "fetched_days": 6.2,
+          "changed_days": 7.2,
+          "change_budget_days": 4,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-09-08"
+        },
+        {
+          "key": "approve_president_trump_2025.race-Black_or_African-American",
+          "fetched_days": 6.2,
+          "changed_days": 7.2,
+          "change_budget_days": 4,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-09-08"
+        },
+        {
+          "key": "approve_president_trump_2025.race-Hispanic_Latino",
+          "fetched_days": 6.2,
+          "changed_days": 7.2,
+          "change_budget_days": 4,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-09-08"
+        },
+        {
+          "key": "approve_president_trump_2025.race-Other",
+          "fetched_days": 6.2,
+          "changed_days": 7.2,
+          "change_budget_days": 4,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-09-08"
+        },
+        {
+          "key": "approve_president_trump_2025.race-White",
+          "fetched_days": 6.2,
+          "changed_days": 7.2,
+          "change_budget_days": 4,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-09-08"
+        },
+        {
+          "key": "describe_feeling_us",
+          "fetched_days": 6.2,
+          "changed_days": 21.2,
+          "change_budget_days": 10,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-08-25"
+        },
+        {
+          "key": "economy_family_retro",
+          "fetched_days": 6.2,
+          "changed_days": 11.2,
+          "change_budget_days": 4,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-09-04"
+        },
+        {
+          "key": "economy_us_direction",
+          "fetched_days": 6.2,
+          "changed_days": 14.2,
+          "change_budget_days": 4,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-09-01"
+        },
+        {
+          "key": "economy_us_now",
+          "fetched_days": 6.2,
+          "changed_days": 10.2,
+          "change_budget_days": 4,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-09-05"
+        },
+        {
+          "key": "inflation_impact",
+          "fetched_days": 6.2,
+          "changed_days": 8.2,
+          "change_budget_days": 4,
+          "newest_snapshot": "2026-09-09",
+          "newest_reading": "2026-09-07"
+        }
+      ],
+      "newest_snapshot": "2026-09-09",
+      "newest_reading": "2026-09-08",
+      "stale_keys": [
+        "approve_president_trump_2025",
+        "approve_president_trump_2025.age-18-34",
+        "approve_president_trump_2025.age-35-49",
+        "approve_president_trump_2025.age-50-64",
+        "approve_president_trump_2025.age-65_",
+        "approve_president_trump_2025.education-College_Graduate",
+        "approve_president_trump_2025.education-Non-College_Graduate",
+        "approve_president_trump_2025.education-Postgraduate",
+        "approve_president_trump_2025.gender-Female",
+        "approve_president_trump_2025.gender-Male",
+        "approve_president_trump_2025.party-Democrat",
+        "approve_president_trump_2025.party-Independent",
+        "approve_president_trump_2025.party-Republican",
+        "approve_president_trump_2025.race-Black_or_African-American",
+        "approve_president_trump_2025.race-Hispanic_Latino",
+        "approve_president_trump_2025.race-Other",
+        "approve_president_trump_2025.race-White",
+        "describe_feeling_us",
+        "economy_family_retro",
+        "economy_us_direction",
+        "economy_us_now",
+        "inflation_impact"
+      ],
+      "failing_keys": [
+        "approve_president_trump_2025",
+        "approve_president_trump_2025.age-18-34",
+        "approve_president_trump_2025.age-35-49",
+        "approve_president_trump_2025.age-50-64",
+        "approve_president_trump_2025.age-65_",
+        "approve_president_trump_2025.education-College_Graduate",
+        "approve_president_trump_2025.education-Non-College_Graduate",
+        "approve_president_trump_2025.education-Postgraduate",
+        "approve_president_trump_2025.gender-Female",
+        "approve_president_trump_2025.gender-Male",
+        "approve_president_trump_2025.party-Democrat",
+        "approve_president_trump_2025.party-Independent",
+        "approve_president_trump_2025.party-Republican",
+        "approve_president_trump_2025.race-Black_or_African-American",
+        "approve_president_trump_2025.race-Hispanic_Latino",
+        "approve_president_trump_2025.race-Other",
+        "approve_president_trump_2025.race-White",
+        "describe_feeling_us",
+        "economy_family_retro",
+        "economy_us_direction",
+        "economy_us_now",
+        "inflation_impact"
+      ],
+      "missing_keys": []
+    },
+    {
+      "source": "sb_approval",
+      "state": "ok",
+      "fetched_days": -0.0,
+      "changed_days": 0.0,
+      "budget_fetch_days": 2,
+      "budget_change_days": 7,
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vS-FKWVTTFtJT6u56e0bqdfoMcXvDO1DUChsJ3jQAMB2lZk2SMqVfmg7dGjclTYkYWz-Pm5lfcLPjp4/pub?output=csv",
+      "file": "sources/sb_approval/2026-09-15.csv"
+    },
+    {
+      "source": "sb_generic",
+      "state": "ok",
+      "fetched_days": -0.0,
+      "changed_days": 0.0,
+      "budget_fetch_days": 2,
+      "budget_change_days": 10,
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsvXNCZ0ubJr8D_yNcU5q6C0_HBa35K7oDK03KpO7Ca43UwdXaIdvVLWoXEmHHph0EREz5430Hm5yZ/pub?output=csv",
+      "file": "sources/sb_generic/2026-09-15.csv"
+    },
+    {
+      "source": "umich",
+      "state": "ok",
+      "fetched_days": -0.0,
+      "changed_days": 3.6,
+      "budget_fetch_days": 3,
+      "budget_change_days": 40,
+      "url": "http://www.sca.isr.umich.edu/files/tbmics.csv",
+      "file": "sources/umich/2026-09-15.json"
+    }
+  ],
+  "questions": [
+    {
+      "round_id": "civiqs-2026-w38-angry-share",
+      "published_at": "2026-09-09T14:00:00Z",
+      "deadline": "2026-09-16T14:00:00Z",
+      "not_yet_published": false,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w38-approval",
+      "published_at": "2026-09-09T14:00:00Z",
+      "deadline": "2026-09-16T14:00:00Z",
+      "not_yet_published": false,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w38-econ-direction",
+      "published_at": "2026-09-09T14:00:00Z",
+      "deadline": "2026-09-16T14:00:00Z",
+      "not_yet_published": false,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w38-econ-now",
+      "published_at": "2026-09-09T14:00:00Z",
+      "deadline": "2026-09-16T14:00:00Z",
+      "not_yet_published": false,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w38-family-finances",
+      "published_at": "2026-09-09T14:00:00Z",
+      "deadline": "2026-09-16T14:00:00Z",
+      "not_yet_published": false,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w38-inflation-concern",
+      "published_at": "2026-09-09T14:00:00Z",
+      "deadline": "2026-09-16T14:00:00Z",
+      "not_yet_published": false,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-profile-2026-w38",
+      "published_at": "2026-09-09T22:00:00Z",
+      "deadline": "2026-09-16T22:00:00Z",
+      "not_yet_published": false,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "trends-basket-2026-09-26",
+      "published_at": "2026-09-11T14:00:00Z",
+      "deadline": "2026-09-18T14:00:00Z",
+      "not_yet_published": false,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "wiki-top10-2026-09-27",
+      "published_at": "2026-09-11T14:00:00Z",
+      "deadline": "2026-09-18T14:00:00Z",
+      "not_yet_published": false,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "hh-2026-09-approval",
+      "published_at": "2026-09-13T14:00:00Z",
+      "deadline": "2026-09-20T14:00:00Z",
+      "not_yet_published": false,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w39-approval",
+      "published_at": "2026-09-13T14:00:00Z",
+      "deadline": "2026-09-20T14:00:00Z",
+      "not_yet_published": false,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w39-generic",
+      "published_at": "2026-09-13T14:00:00Z",
+      "deadline": "2026-09-20T14:00:00Z",
+      "not_yet_published": false,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w39-rv-approval",
+      "published_at": "2026-09-13T14:00:00Z",
+      "deadline": "2026-09-20T14:00:00Z",
+      "not_yet_published": false,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w39-strong-approval",
+      "published_at": "2026-09-13T14:00:00Z",
+      "deadline": "2026-09-20T14:00:00Z",
+      "not_yet_published": false,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-xtab-2026-w39",
+      "published_at": "2026-09-13T14:00:00Z",
+      "deadline": "2026-09-20T14:00:00Z",
+      "not_yet_published": false,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "mc-2026-w39-approval",
+      "published_at": "2026-09-14T14:00:00Z",
+      "deadline": "2026-09-21T14:00:00Z",
+      "not_yet_published": false,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "aaii-2026-09-24",
+      "published_at": "2026-09-15T14:00:00Z",
+      "deadline": "2026-09-22T14:00:00Z",
+      "not_yet_published": false,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w39-angry-share",
+      "published_at": "2026-09-16T14:00:00Z",
+      "deadline": "2026-09-23T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w39-approval",
+      "published_at": "2026-09-16T14:00:00Z",
+      "deadline": "2026-09-23T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w39-econ-direction",
+      "published_at": "2026-09-16T14:00:00Z",
+      "deadline": "2026-09-23T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w39-econ-now",
+      "published_at": "2026-09-16T14:00:00Z",
+      "deadline": "2026-09-23T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w39-family-finances",
+      "published_at": "2026-09-16T14:00:00Z",
+      "deadline": "2026-09-23T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w39-inflation-concern",
+      "published_at": "2026-09-16T14:00:00Z",
+      "deadline": "2026-09-23T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "umich-2026-09-final",
+      "published_at": "2026-09-16T14:00:00Z",
+      "deadline": "2026-09-23T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-profile-2026-w39",
+      "published_at": "2026-09-16T22:00:00Z",
+      "deadline": "2026-09-23T22:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "trends-basket-2026-10-03",
+      "published_at": "2026-09-18T14:00:00Z",
+      "deadline": "2026-09-25T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "wiki-top10-2026-10-04",
+      "published_at": "2026-09-18T14:00:00Z",
+      "deadline": "2026-09-25T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w40-approval",
+      "published_at": "2026-09-20T14:00:00Z",
+      "deadline": "2026-09-27T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w40-rv-approval",
+      "published_at": "2026-09-20T14:00:00Z",
+      "deadline": "2026-09-27T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w40-strong-approval",
+      "published_at": "2026-09-20T14:00:00Z",
+      "deadline": "2026-09-27T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-xtab-2026-w40",
+      "published_at": "2026-09-20T14:00:00Z",
+      "deadline": "2026-09-27T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w40-angry-share",
+      "published_at": "2026-09-23T14:00:00Z",
+      "deadline": "2026-09-30T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w40-approval",
+      "published_at": "2026-09-23T14:00:00Z",
+      "deadline": "2026-09-30T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w40-econ-direction",
+      "published_at": "2026-09-23T14:00:00Z",
+      "deadline": "2026-09-30T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w40-econ-now",
+      "published_at": "2026-09-23T14:00:00Z",
+      "deadline": "2026-09-30T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w40-family-finances",
+      "published_at": "2026-09-23T14:00:00Z",
+      "deadline": "2026-09-30T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w40-inflation-concern",
+      "published_at": "2026-09-23T14:00:00Z",
+      "deadline": "2026-09-30T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-profile-2026-w40",
+      "published_at": "2026-09-23T22:00:00Z",
+      "deadline": "2026-09-30T22:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "trends-basket-2026-10-10",
+      "published_at": "2026-09-25T14:00:00Z",
+      "deadline": "2026-10-02T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "wiki-top10-2026-10-11",
+      "published_at": "2026-09-25T14:00:00Z",
+      "deadline": "2026-10-02T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w41-approval",
+      "published_at": "2026-09-27T14:00:00Z",
+      "deadline": "2026-10-04T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w41-rv-approval",
+      "published_at": "2026-09-27T14:00:00Z",
+      "deadline": "2026-10-04T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w41-strong-approval",
+      "published_at": "2026-09-27T14:00:00Z",
+      "deadline": "2026-10-04T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-xtab-2026-w41",
+      "published_at": "2026-09-27T14:00:00Z",
+      "deadline": "2026-10-04T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "sce-2026-09-infl1y",
+      "published_at": "2026-09-28T15:00:00Z",
+      "deadline": "2026-10-05T15:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "sce-2026-09-infl3y",
+      "published_at": "2026-09-28T15:00:00Z",
+      "deadline": "2026-10-05T15:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w41-angry-share",
+      "published_at": "2026-09-30T14:00:00Z",
+      "deadline": "2026-10-07T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w41-approval",
+      "published_at": "2026-09-30T14:00:00Z",
+      "deadline": "2026-10-07T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w41-econ-direction",
+      "published_at": "2026-09-30T14:00:00Z",
+      "deadline": "2026-10-07T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w41-econ-now",
+      "published_at": "2026-09-30T14:00:00Z",
+      "deadline": "2026-10-07T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w41-family-finances",
+      "published_at": "2026-09-30T14:00:00Z",
+      "deadline": "2026-10-07T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w41-inflation-concern",
+      "published_at": "2026-09-30T14:00:00Z",
+      "deadline": "2026-10-07T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-profile-2026-w41",
+      "published_at": "2026-09-30T22:00:00Z",
+      "deadline": "2026-10-07T22:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "trends-basket-2026-10-17",
+      "published_at": "2026-10-02T14:00:00Z",
+      "deadline": "2026-10-09T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "wiki-top10-2026-10-18",
+      "published_at": "2026-10-02T14:00:00Z",
+      "deadline": "2026-10-09T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w42-approval",
+      "published_at": "2026-10-04T14:00:00Z",
+      "deadline": "2026-10-11T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w42-rv-approval",
+      "published_at": "2026-10-04T14:00:00Z",
+      "deadline": "2026-10-11T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w42-strong-approval",
+      "published_at": "2026-10-04T14:00:00Z",
+      "deadline": "2026-10-11T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-xtab-2026-w42",
+      "published_at": "2026-10-04T14:00:00Z",
+      "deadline": "2026-10-11T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w42-angry-share",
+      "published_at": "2026-10-07T14:00:00Z",
+      "deadline": "2026-10-14T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w42-approval",
+      "published_at": "2026-10-07T14:00:00Z",
+      "deadline": "2026-10-14T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w42-econ-direction",
+      "published_at": "2026-10-07T14:00:00Z",
+      "deadline": "2026-10-14T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w42-econ-now",
+      "published_at": "2026-10-07T14:00:00Z",
+      "deadline": "2026-10-14T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w42-family-finances",
+      "published_at": "2026-10-07T14:00:00Z",
+      "deadline": "2026-10-14T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w42-inflation-concern",
+      "published_at": "2026-10-07T14:00:00Z",
+      "deadline": "2026-10-14T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-profile-2026-w42",
+      "published_at": "2026-10-07T22:00:00Z",
+      "deadline": "2026-10-14T22:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "trends-basket-2026-10-24",
+      "published_at": "2026-10-09T14:00:00Z",
+      "deadline": "2026-10-16T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "wiki-top10-2026-10-25",
+      "published_at": "2026-10-09T14:00:00Z",
+      "deadline": "2026-10-16T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "hh-2026-10-approval",
+      "published_at": "2026-10-11T14:00:00Z",
+      "deadline": "2026-10-18T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w43-approval",
+      "published_at": "2026-10-11T14:00:00Z",
+      "deadline": "2026-10-18T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w43-rv-approval",
+      "published_at": "2026-10-11T14:00:00Z",
+      "deadline": "2026-10-18T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w43-strong-approval",
+      "published_at": "2026-10-11T14:00:00Z",
+      "deadline": "2026-10-18T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-xtab-2026-w43",
+      "published_at": "2026-10-11T14:00:00Z",
+      "deadline": "2026-10-18T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w43-angry-share",
+      "published_at": "2026-10-14T14:00:00Z",
+      "deadline": "2026-10-21T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w43-approval",
+      "published_at": "2026-10-14T14:00:00Z",
+      "deadline": "2026-10-21T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w43-econ-direction",
+      "published_at": "2026-10-14T14:00:00Z",
+      "deadline": "2026-10-21T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w43-econ-now",
+      "published_at": "2026-10-14T14:00:00Z",
+      "deadline": "2026-10-21T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w43-family-finances",
+      "published_at": "2026-10-14T14:00:00Z",
+      "deadline": "2026-10-21T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w43-inflation-concern",
+      "published_at": "2026-10-14T14:00:00Z",
+      "deadline": "2026-10-21T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-profile-2026-w43",
+      "published_at": "2026-10-14T22:00:00Z",
+      "deadline": "2026-10-21T22:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "trends-basket-2026-10-31",
+      "published_at": "2026-10-16T14:00:00Z",
+      "deadline": "2026-10-23T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "wiki-top10-2026-11-01",
+      "published_at": "2026-10-16T14:00:00Z",
+      "deadline": "2026-10-23T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w44-approval",
+      "published_at": "2026-10-18T14:00:00Z",
+      "deadline": "2026-10-25T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w44-rv-approval",
+      "published_at": "2026-10-18T14:00:00Z",
+      "deadline": "2026-10-25T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w44-strong-approval",
+      "published_at": "2026-10-18T14:00:00Z",
+      "deadline": "2026-10-25T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-xtab-2026-w44",
+      "published_at": "2026-10-18T14:00:00Z",
+      "deadline": "2026-10-25T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w44-angry-share",
+      "published_at": "2026-10-21T14:00:00Z",
+      "deadline": "2026-10-28T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w44-approval",
+      "published_at": "2026-10-21T14:00:00Z",
+      "deadline": "2026-10-28T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w44-econ-direction",
+      "published_at": "2026-10-21T14:00:00Z",
+      "deadline": "2026-10-28T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w44-econ-now",
+      "published_at": "2026-10-21T14:00:00Z",
+      "deadline": "2026-10-28T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w44-family-finances",
+      "published_at": "2026-10-21T14:00:00Z",
+      "deadline": "2026-10-28T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-2026-w44-inflation-concern",
+      "published_at": "2026-10-21T14:00:00Z",
+      "deadline": "2026-10-28T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "civiqs-profile-2026-w44",
+      "published_at": "2026-10-21T22:00:00Z",
+      "deadline": "2026-10-28T22:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "midterm-2026-house-margin",
+      "published_at": "2026-10-23T22:00:00Z",
+      "deadline": "2026-10-30T22:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "midterm-2026-house-seats",
+      "published_at": "2026-10-23T22:00:00Z",
+      "deadline": "2026-10-30T22:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w45-approval",
+      "published_at": "2026-10-25T14:00:00Z",
+      "deadline": "2026-11-01T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w45-rv-approval",
+      "published_at": "2026-10-25T14:00:00Z",
+      "deadline": "2026-11-01T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-2026-w45-strong-approval",
+      "published_at": "2026-10-25T14:00:00Z",
+      "deadline": "2026-11-01T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    },
+    {
+      "round_id": "yougov-xtab-2026-w45",
+      "published_at": "2026-10-25T14:00:00Z",
+      "deadline": "2026-11-01T14:00:00Z",
+      "not_yet_published": true,
+      "source_url_missing": true,
+      "upstream_wording_matches": true
+    }
+  ]
+}
