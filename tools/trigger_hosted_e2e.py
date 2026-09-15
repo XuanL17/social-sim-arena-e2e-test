@@ -24,6 +24,10 @@ def main():
         assert call['backend_service'] == 'independent-vercel-project'
         assert call['backend_deployment'].startswith('social-sim-arena-e2e-agent-')
         assert call['backend_deployment'] != platform
+        assert call['llm_generation_id'] and call['llm_model']
+        assert float(call['llm_cost']) == 0
+        assert call['replay_generation_id'] == call['llm_generation_id']
+        assert call['replay_cache'] == 'hit'
     assert all(r['status'] == 'resolved' for r in report['results'])
     (ROOT / 'site/e2e-results.json').write_text(json.dumps(report, indent=2)+'\n')
     print(json.dumps(report, indent=2))

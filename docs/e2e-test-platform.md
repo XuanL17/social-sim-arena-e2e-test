@@ -8,12 +8,13 @@ Both services run in assassin808's Vercel account, in separate projects:
 | --- | --- |
 | Platform / test dashboard | https://social-sim-arena-e2e-test.vercel.app/e2e.html |
 | Browser registration/probe | https://social-sim-arena-e2e-test.vercel.app/submit.html |
-| Independent simulated AI API | https://social-sim-arena-e2e-agent.vercel.app/forecast |
+| Independent free LLM API | https://social-sim-arena-e2e-agent.vercel.app/forecast |
 | Backend health | https://social-sim-arena-e2e-agent.vercel.app/healthz |
 
-No SSH server or custom domain is needed. The backend is a real hosted API that
-simulates an AI deterministically, not a paid LLM. Vercel mode is stateless;
-equal inputs produce equal answers without claiming durable SQLite storage.
+No SSH server or custom domain is needed. The backend calls a real OpenRouter :free model using the existing OpenRouter
+key stored only in the backend Vercel environment. Provider input/output price
+caps are zero and paid fallbacks are disabled. Failed/limited inference returns
+an error; it never silently substitutes a simulated answer.
 
 ## Verified path
 
@@ -78,7 +79,7 @@ between the two directories.
 
 ## Your own simulated or real AI implementation
 
-Change the forecast implementation in `examples/remote-entrant/server.py` and
+Change the forecast implementation in `examples/remote-entrant/openrouter_ai.py` and
 deploy from that directory. The Vercel adapter is `api/index.py`. Or replace the
 registration endpoint and matching `E2E_REMOTE_URL` with another HTTPS service.
 Load this fork's `site/keys.json` in an external server to verify signatures.
@@ -105,3 +106,25 @@ before calling. Its calls execute locally, unlike `trigger_hosted_e2e.py`.
 `tests/test_remote_entrant.py` additionally checks TCP and SQLite restart behavior
 for the optional standalone VM/container implementation. That persistence test
 must not be described as Vercel storage verification.
+
+## OpenRouter free LLM mode
+
+Backend variables: `OPENROUTER_API_KEY`, `OPENROUTER_MODEL` (must end in `:free`).
+The current configured model is `liquid/lfm-2.5-2.6b:free`. Before each cache-miss
+inference, the backend checks the OpenRouter catalog for zero prompt, completion
+and request prices, then sends provider max-price caps of zero. It requires
+OpenRouter to report generation cost 0 before returning success. There is no
+model fallback list and provider fallback is disabled.
+
+Responses are cached in Vercel Runtime Cache for 24 hours by model and canonical
+request content. Repeated requests within retained cache entries reuse the same
+generation. Cache eviction/expiry and simultaneous misses can consume another
+free request; this is not a durable forever-idempotency guarantee.
+
+The report includes model, generation ID, cost, replay generation ID and cache
+status. Free-tier rate limits and provider availability may cause failures;
+such failures never switch to a paid model. Vercel hosting/cache usage follows
+the existing Vercel plan separately from the OpenRouter inference price.
+
+References: [OpenRouter free variants](https://openrouter.ai/docs/guides/routing/model-variants/free),
+[provider price caps](https://openrouter.ai/docs/guides/routing/provider-selection).

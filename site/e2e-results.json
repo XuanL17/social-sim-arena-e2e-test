@@ -3,7 +3,7 @@
   "endpoint": "https://social-sim-arena-e2e-agent.vercel.app/forecast",
   "entrant_id": "e2e_remote_backend",
   "registration_validated": true,
-  "run_at": "2026-09-15T06:09:56.486004+00:00",
+  "run_at": "2026-09-15T07:05:46.783187+00:00",
   "simulated_received_at": "2028-01-03T11:00:00Z",
   "simulated_resolved_at": "2028-01-18T00:00:00+00:00",
   "scope": "Real signed HTTPS calls; local production parsers, bundle normalization and scorers; synthetic clock and source outcomes. Does not run scheduled production refresh or GitHub registration review.",
@@ -14,7 +14,12 @@
       "idempotency": "passed",
       "bad_signature_status": 401,
       "backend_service": "independent-vercel-project",
-      "backend_deployment": "social-sim-arena-e2e-agent-rffx3cn5u-yangs-projects-36e22525.vercel.app"
+      "backend_deployment": "social-sim-arena-e2e-agent-osh0n3qf2-yangs-projects-36e22525.vercel.app",
+      "llm_model": "liquid/lfm-2.5-2.6b:free",
+      "llm_generation_id": "gen-1789455754-IUskQeH9bgN1NrVKJuFR",
+      "llm_cost": "0",
+      "replay_generation_id": "gen-1789455754-IUskQeH9bgN1NrVKJuFR",
+      "replay_cache": "hit"
     },
     {
       "round_id": "sandbox-profile-2028-w01",
@@ -22,7 +27,12 @@
       "idempotency": "passed",
       "bad_signature_status": 401,
       "backend_service": "independent-vercel-project",
-      "backend_deployment": "social-sim-arena-e2e-agent-rffx3cn5u-yangs-projects-36e22525.vercel.app"
+      "backend_deployment": "social-sim-arena-e2e-agent-osh0n3qf2-yangs-projects-36e22525.vercel.app",
+      "llm_model": "liquid/lfm-2.5-2.6b:free",
+      "llm_generation_id": "gen-1789455775-zEayzdP7NBQQbom30hXW",
+      "llm_cost": "0",
+      "replay_generation_id": "gen-1789455775-zEayzdP7NBQQbom30hXW",
+      "replay_cache": "hit"
     },
     {
       "round_id": "sandbox-ranking-2028-w01",
@@ -30,7 +40,12 @@
       "idempotency": "passed",
       "bad_signature_status": 401,
       "backend_service": "independent-vercel-project",
-      "backend_deployment": "social-sim-arena-e2e-agent-rffx3cn5u-yangs-projects-36e22525.vercel.app"
+      "backend_deployment": "social-sim-arena-e2e-agent-osh0n3qf2-yangs-projects-36e22525.vercel.app",
+      "llm_model": "liquid/lfm-2.5-2.6b:free",
+      "llm_generation_id": "gen-1789455912-hxi3d1XuuclbAytfYU0B",
+      "llm_cost": "0",
+      "replay_generation_id": "gen-1789455912-hxi3d1XuuclbAytfYU0B",
+      "replay_cache": "hit"
     }
   ],
   "receipt": {
@@ -40,7 +55,7 @@
     "deadline": "2028-01-08T14:00:00Z",
     "received_at": "2028-01-03T11:00:00Z",
     "bundle_sha256": "572c311f6c34eeef39e11492f62b42cdab979a9830c86314e2356d5f7f5f8b71",
-    "response_sha256": "c99afb3858f42c0706fbf9586afc7e234ebeb2264c59939d336d9c7c4e47bec5",
+    "response_sha256": "58d53ad529820c93e3456f54db4748dcca808ddaa06106ea7f30ccc29ec90bbd",
     "accepted": 3,
     "rejected": 0,
     "unanswered": []
@@ -52,7 +67,7 @@
     "deadline": "2028-01-08T14:00:00Z",
     "received_at": "2028-01-18T00:00:00Z",
     "bundle_sha256": "572c311f6c34eeef39e11492f62b42cdab979a9830c86314e2356d5f7f5f8b71",
-    "response_sha256": "c99afb3858f42c0706fbf9586afc7e234ebeb2264c59939d336d9c7c4e47bec5",
+    "response_sha256": "58d53ad529820c93e3456f54db4748dcca808ddaa06106ea7f30ccc29ec90bbd",
     "accepted": 0,
     "rejected": 3,
     "unanswered": []
@@ -63,7 +78,7 @@
       "shape": "continuous_normal",
       "status": "resolved",
       "scores": {
-        "crps": 53.67905208226122
+        "crps": 6.905607958251853
       }
     },
     {
@@ -71,16 +86,16 @@
       "shape": "profile_energy",
       "status": "resolved",
       "scores": {
-        "energy": 149.32702045645252,
-        "level": 54.67657536960186,
-        "structure": 102.56441199855928,
+        "energy": 108.88076568034954,
+        "level": 6.141845382890549,
+        "structure": 108.23104964566177,
         "per_cell": [
-          125.1814160755038,
-          21.1814160755038,
-          61.1814160755038,
-          53.6814160755038
+          78.34524779668124,
+          74.2277964680772,
+          13.988336293134257,
+          6.43652213237922
         ],
-        "mean_cell_crps": 65.3064160755038
+        "mean_cell_crps": 43.249475672567975
       }
     },
     {
@@ -88,8 +103,8 @@
       "shape": "ranking_list",
       "status": "resolved",
       "scores": {
-        "loss": 0.2,
-        "discordant_pairs": 2,
+        "loss": 0.5,
+        "discordant_pairs": 5,
         "pairs": 10,
         "exact_positions": 1,
         "n": 5
@@ -98,5 +113,5 @@
   ],
   "caller": "vercel-server",
   "backend": "independent-vercel-project",
-  "platform_deployment": "social-sim-arena-e2e-test-jygv504p3-yangs-projects-36e22525.vercel.app"
+  "platform_deployment": "social-sim-arena-e2e-test-lvediik9m-yangs-projects-36e22525.vercel.app"
 }
