@@ -14,15 +14,39 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 import requests
-from ssa import agent_api, bundle, ranking_round, refresh, signing, series
+from jsonschema import validate
+from ssa import agent_api, bundle, ranking_round, refresh, signing, series, participants
 from tools import run_sandbox_cycle as cycle
 
 
-def run(url):
+def registered_endpoint(path):
+    path = Path(path)
+    registration = json.loads(path.read_text())
+    validate(registration, json.loads((ROOT / 'schema/entrant.schema.json').read_text()))
+    entrant_id = registration['entrant_id']
+    if path.stem != entrant_id:
+        raise ValueError('Registration filename must match entrant_id')
+    if registration.get('type') != 'participant':
+        raise ValueError('Rehearsal registration must be a participant')
+    if participants.revoked(entrant_id, str(path.parent)):
+        raise ValueError('Registration is revoked or retired; no endpoint was called')
+    route = participants.route(entrant_id, str(path.parent))
+    if route is None:
+        raise ValueError('Registration has no Agent API route')
+    return route['base'], registration
+
+
+def run(url=None, registration_path=None):
+    registration = None
+    if registration_path:
+        if url is not None:
+            raise ValueError('Choose a URL or a registration, not both')
+        url, registration = registered_endpoint(registration_path)
+    entrant_id = registration['entrant_id'] if registration else 'e2e_demo'
     parsed = urlparse(url)
-    if parsed.scheme != 'https' or parsed.username or parsed.password:
-        raise ValueError('Use an HTTPS test endpoint without URL credentials')
-    if parsed.hostname in {'social-simulation-arena.com', 'www.social-simulation-arena.com', 'socialsimarena.com'}:
+    if parsed.scheme != 'https' or not parsed.hostname or parsed.username or parsed.password or parsed.query or parsed.fragment:
+        raise ValueError('Use an HTTPS test endpoint without credentials, query or fragment')
+    if any(parsed.hostname == host or parsed.hostname.endswith('.' + host) for host in ('social-simulation-arena.com', 'socialsimarena.com')):
         raise ValueError('The official platform is not a test endpoint')
     env = dict(line.split('=', 1) for line in
                (ROOT / '.local/e2e-signing.env').read_text().splitlines() if '=' in line)
@@ -36,7 +60,7 @@ def run(url):
         # Synthetic source declarations exist only during envelope construction.
         fixture_series = {name: {'label': name} for name in source['series']}
         with patch.dict(series.SERIES, fixture_series):
-            prompt = agent_api.build_envelope('e2e_demo', r)
+            prompt = agent_api.build_envelope(entrant_id, r)
         body = json.dumps(prompt, sort_keys=True, separators=(',', ':')).encode()
         def post(corrupt=False):
             headers = {'Content-Type': 'application/json', **signing.sign(key, body, key_id)}
@@ -63,13 +87,13 @@ def run(url):
         calls.append({'round_id': r['round_id'], 'status': reply.status_code,
                       'idempotency': 'passed', 'bad_signature_status': bad.status_code})
     response = {'schema_version': questions['schema_version'], 'batch_id': questions['batch_id'],
-                'entrant_id': 'e2e_demo', 'answers': answers}
+                'entrant_id': entrant_id, 'answers': answers}
     received = datetime.fromisoformat(cycle.RECEIVED_AT.replace('Z', '+00:00'))
-    accepted = bundle.normalise(response, questions, now=received)
+    accepted = bundle.normalise(response, questions, now=received, entrant=registration)
     if accepted['receipt']['accepted'] != 3:
         raise RuntimeError(json.dumps(accepted['results']))
     after = datetime(2028, 1, 18, tzinfo=timezone.utc)
-    late = bundle.normalise(response, questions, now=after)
+    late = bundle.normalise(response, questions, now=after, entrant=registration)
     if late['receipt']['accepted'] != 0 or any(r.get('reason') != 'late' for r in late['results']):
         raise RuntimeError('Late submission was not rejected as late')
     records_dir = ROOT / '.local/e2e-agent-records'
@@ -84,6 +108,7 @@ def run(url):
             raise RuntimeError(f'{rid}: {status}')
         results.append({'round_id': rid, 'shape': r['target_type'], 'status': status, 'scores': scores})
     report = {'environment': 'isolated-e2e-test', 'endpoint': url,
+              'entrant_id': entrant_id, 'registration_validated': registration is not None,
               'run_at': datetime.now(timezone.utc).isoformat(),
               'simulated_received_at': cycle.RECEIVED_AT,
               'simulated_resolved_at': after.isoformat(),
@@ -96,6 +121,8 @@ def run(url):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--url', required=True)
+    target = parser.add_mutually_exclusive_group(required=True)
+    target.add_argument('--url')
+    target.add_argument('--registration', help='Path to the participant JSON generated by submit.html')
     args = parser.parse_args()
-    print(json.dumps(run(args.url), indent=2))
+    print(json.dumps(run(args.url, args.registration), indent=2))

@@ -1,7 +1,9 @@
 {
   "environment": "isolated-e2e-test",
   "endpoint": "https://social-sim-arena-e2e-test.vercel.app/api/example-agent",
-  "run_at": "2026-09-15T05:43:56.619886+00:00",
+  "entrant_id": "e2e_demo",
+  "registration_validated": true,
+  "run_at": "2026-09-15T05:49:15.888094+00:00",
   "simulated_received_at": "2028-01-03T11:00:00Z",
   "simulated_resolved_at": "2028-01-18T00:00:00+00:00",
   "scope": "Real signed HTTPS calls; local production parsers, bundle normalization and scorers; synthetic clock and source outcomes. Does not run scheduled production refresh or GitHub registration review.",

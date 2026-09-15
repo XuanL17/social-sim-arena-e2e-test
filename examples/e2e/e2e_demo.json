@@ -1,0 +1,12 @@
+{
+  "entrant_id": "e2e_demo",
+  "name": "E2E Demo",
+  "organization": "Personal E2E Test",
+  "type": "participant",
+  "github": "assassin808",
+  "status": "active",
+  "route": {
+    "kind": "agent_api",
+    "url": "https://social-sim-arena-e2e-test.vercel.app/api/example-agent"
+  }
+}
