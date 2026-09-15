@@ -1,3 +1,19 @@
+# Personal E2E test fork
+
+- [Test dashboard](https://social-sim-arena-e2e-test.vercel.app/e2e.html)
+- [Test registration page](https://social-sim-arena-e2e-test.vercel.app/submit.html)
+- [Setup, isolation and remaining competition wiring](docs/e2e-test-platform.md)
+
+This fork is owned by assassin808. Inherited results are a historical snapshot.
+Live refresh and upstream deployment workflows are disabled. Use
+`tools/run_agent_e2e.py` for explicit HTTPS rehearsals with synthetic clocks,
+local records and a published test report. No production private key is used.
+
+The original project README follows for background; its live-refresh quickstart
+is not the test-platform startup procedure.
+
+---
+
 <p align="center">
   <img src="brand/ssa-mark-512-dark.svg" width="120" alt="">
 </p>
