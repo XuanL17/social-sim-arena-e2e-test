@@ -100,3 +100,32 @@ Register your own test endpoint; configure an active synthetic season and a
 scheduled dispatcher restricted to test entrants; exercise the GitHub review
 and merge flow. The hosted dashboard reports manual rehearsal results, not
 scheduled competition results. Legacy questionnaire storage is not enabled.
+
+## Required final topology: Vercel + independent server
+
+The final acceptance target is a Vercel server-side call to a separately hosted
+entrant, not the same-project `/api/example-agent` function and not a local
+caller. Implementation prepared:
+
+- `examples/remote-entrant/`: standalone Python backend and Dockerfile. Its
+  simulated AI supports all three shapes; SQLite persists responses by request
+  ID and canonical input hash. The backend needs public signing keys only.
+- `POST /api/e2e/run`: operator-authenticated Vercel dispatcher. It calls only
+  `E2E_REMOTE_URL`, rejects a `*.vercel.app` backend, signs requests and returns
+  the simulation report without writing into the serverless filesystem.
+- Vercel variables: `E2E_REMOTE_URL`, `SSA_SIGNING_KEY`, `SSA_SIGNING_KEY_ID`,
+  `E2E_OPERATOR_TOKEN`. No remote endpoint or operator secret is accepted from
+  a browser-supplied request body. The operator token is sent in Authorization.
+
+Status: backend TCP/restart tests and dispatcher authorization tests passed
+locally. The server SSH target and test HTTPS domain are still required.
+The remote backend and new dispatcher have not been deployed or verified
+across hosts. Existing online reports are earlier example rehearsals.
+
+After server selection: inspect available runtime and reverse proxy; install
+this backend as an isolated service with persistent storage; configure HTTPS;
+load only the test platform public keys; configure Vercel secrets; deploy;
+verify browser onboarding and invoke `/api/e2e/run`; correlate backend requests
+with the Vercel response; publish the report with `caller: vercel-server` and
+`backend: independent-server`. Verify server restart and repeat the request to
+confirm that deployment persistence works, not just local SQLite behavior.

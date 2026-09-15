@@ -36,7 +36,7 @@ def registered_endpoint(path):
     return route['base'], registration
 
 
-def run(url=None, registration_path=None):
+def run(url=None, registration_path=None, *, signing_config=None, persist=True):
     registration = None
     if registration_path:
         if url is not None:
@@ -48,10 +48,12 @@ def run(url=None, registration_path=None):
         raise ValueError('Use an HTTPS test endpoint without credentials, query or fragment')
     if any(parsed.hostname == host or parsed.hostname.endswith('.' + host) for host in ('social-simulation-arena.com', 'socialsimarena.com')):
         raise ValueError('The official platform is not a test endpoint')
-    env = dict(line.split('=', 1) for line in
+    env = signing_config if signing_config is not None else dict(line.split('=', 1) for line in
                (ROOT / '.local/e2e-signing.env').read_text().splitlines() if '=' in line)
     key = env['SSA_SIGNING_KEY']
     key_id = env['SSA_SIGNING_KEY_ID']
+    if signing.public_key_of(key) != signing.published_keys().get(key_id):
+        raise ValueError('Signing key does not match this test platform public key')
     rounds = cycle.read(cycle.ROUNDS)['rounds']
     questions = cycle.generated_bundle(rounds)
     source = cycle.read(cycle.SOURCE_OBSERVATIONS)
@@ -97,7 +99,8 @@ def run(url=None, registration_path=None):
     if late['receipt']['accepted'] != 0 or any(r.get('reason') != 'late' for r in late['results']):
         raise RuntimeError('Late submission was not rejected as late')
     records_dir = ROOT / '.local/e2e-agent-records'
-    bundle.file_records(accepted['records'], str(records_dir))
+    if persist:
+        bundle.file_records(accepted['records'], str(records_dir))
     resolved, results = {}, []
     for r in rounds:
         rid = r['round_id']
@@ -115,7 +118,8 @@ def run(url=None, registration_path=None):
               'scope': 'Real signed HTTPS calls; local production parsers, bundle normalization and scorers; synthetic clock and source outcomes. Does not run scheduled production refresh or GitHub registration review.',
               'calls': calls, 'receipt': accepted['receipt'], 'late_receipt': late['receipt'],
               'results': results}
-    (ROOT / 'site/e2e-results.json').write_text(json.dumps(report, indent=2) + '\n')
+    if persist:
+        (ROOT / 'site/e2e-results.json').write_text(json.dumps(report, indent=2) + '\n')
     return report
 
 

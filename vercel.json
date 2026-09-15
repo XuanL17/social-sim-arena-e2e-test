@@ -11,7 +11,7 @@
       "src": "api/*.py",
       "use": "@vercel/python",
       "config": {
-        "includeFiles": "{site/data.json,schema/*.schema.json,ssa/questionnaire_api.py,ssa/registry.py,ssa/bundle_api.py,ssa/bundle.py,ssa/participants.py,tools/validate_submission.py,entrants/*.json,site/keys.json,examples/agent-api/server.py,questions/bundles/*.json}"
+        "includeFiles": "{site/data.json,schema/*.schema.json,ssa/questionnaire_api.py,ssa/registry.py,ssa/bundle_api.py,ssa/bundle.py,ssa/participants.py,tools/validate_submission.py,entrants/*.json,site/keys.json,examples/agent-api/server.py,questions/bundles/*.json,examples/bundle/*.json,tools/run_agent_e2e.py,tools/run_sandbox_cycle.py,tools/accept_bundle.py,tools/validate_bundle.py,ssa/*.py,ssa/adapters/*.py}"
       }
     },
     {
@@ -24,6 +24,10 @@
     }
   ],
   "routes": [
+    {
+      "src": "/api/e2e/run",
+      "dest": "/api/e2e_run.py"
+    },
     {
       "src": "/api/v1/questionnaire",
       "dest": "/api/questionnaire.py"
