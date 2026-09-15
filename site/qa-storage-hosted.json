@@ -1,0 +1,23 @@
+{
+  "verified_at": "2026-09-15T23:53:38.682995+00:00",
+  "mode": "hosted",
+  "storage_repo": "assassin808/social-sim-arena-e2e-test-intake",
+  "questionnaire": {
+    "create": 201,
+    "replay": 200,
+    "conflict": 409,
+    "independent_readback": true,
+    "original_unchanged": true,
+    "submission_id": "ssa_c715a291d46bbca1ae543ac5",
+    "receipt_hash": "b9f015c795f559bd0c522759def7f09c17a29d675aeeb5a0ab115c3e09dd1e8e"
+  },
+  "bundle": {
+    "unauthorized": 401,
+    "create": 200,
+    "replay": 200,
+    "independent_readback": true,
+    "accepted": 15,
+    "rejected": 2,
+    "response_sha256": "8090290cb9a112191111f12d2eaee8449dd10f56330d131404f6bbaed11d0651"
+  }
+}

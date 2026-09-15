@@ -25,13 +25,11 @@
 Bundle hash `1b20d9b11294983c645bc593af07ca9c6345abca7e66e15dbbfd3f4a364ce2f9`。
 机器报告位于忽略目录 `.local/qa-storage-real.json`。仓库保留两份合成记录，未写入正式仓库、未创建正式预测文件、无真实联系人信息。
 
-## 未通过：Vercel → 持久存储
+## 已通过：Vercel → 持久存储
 
-真实测试站问卷 POST 仍返回 **503 `submission_storage_unavailable`**。平台当前仅配置 E2E/signing 相关变量，无 intake 存储凭据；当前进程也未发现专用 INTAKE/GitHub App/installation 凭据。没有把本机 gh 全账户长期 token 复制到 Vercel。
+用户配置仓库限定专用凭据后已重新部署。2026-09-15T23:53:38Z 从实际测试站入口验证：问卷201创建、200原样重放、409同键改文；独立GitHub重读hash与正文一致，原文件未覆盖。Bundle无凭据401，正确凭据200创建与200重放，15接收、2正确late拒绝，独立重读一致。
 
-完成 hosted 验证所需最小外部输入：对 **仅此私有测试仓库**具有 Contents read/write 权限的短有效期 fine-grained PAT（Metadata read 为 GitHub 默认），配置为测试 Vercel 项目 production 的 `INTAKE_REPO_TOKEN`。不要在对话中粘贴凭据。或提供可签发该仓库 installation token 的现有 GitHub App 接入。
-
-若还需 hosted bundle 验证：测试项目配置随机专用 `SSA_UPLOAD_KEY_E2E_REMOTE_BACKEND`；本机同值用 `SSA_QA_UPLOAD_TOKEN`，仅用于既有测试 entrant。重新部署后由主代理统一运行 `--hosted`。不需创建新服务、购买服务或变更正式环境。
+机器证据：`site/qa-storage-hosted.json`。只使用该私有测试仓库的专用凭据，没有把本机gh广权限token复制到云端。云端上传token也仅用于测试entrant。真实持久化这一缺口已关闭；不代表正式平台启用了旧入口。
 
 ## 复现
 
@@ -44,4 +42,4 @@ Bundle hash `1b20d9b11294983c645bc593af07ca9c6345abca7e66e15dbbfd3f4a364ce2f9`�
 
 默认模式借用本机 gh 身份，仅在该进程内存中使用并在退出时恢复环境；不写 token 文件、不打印 token、不配置云端 token。脚本首先核对仓库固定为测试仓库且 private。每次运行生成新幂等键并保留新的合成审计记录；不要拿它当无写入的探针。
 
-3 项离线测试只验证 harness 合同与隔离约束，不能替代上表真实读写证据。尚未证明云端持久化、并发写入竞争、长时间稳定性、人工复核后到正式评分的落盘转换。
+3 项离线测试只验证 harness 合同与隔离约束，不能替代上表真实读写证据。尚未证明并发写入竞争、长时间稳定性、人工复核后到正式评分的落盘转换。
