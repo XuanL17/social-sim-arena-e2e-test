@@ -101,31 +101,32 @@ scheduled dispatcher restricted to test entrants; exercise the GitHub review
 and merge flow. The hosted dashboard reports manual rehearsal results, not
 scheduled competition results. Legacy questionnaire storage is not enabled.
 
-## Required final topology: Vercel + independent server
+## Final topology: two independent Vercel projects
 
-The final acceptance target is a Vercel server-side call to a separately hosted
-entrant, not the same-project `/api/example-agent` function and not a local
-caller. Implementation prepared:
+The user chose Vercel for both sides; no SSH server or custom domain is needed.
 
-- `examples/remote-entrant/`: standalone Python backend and Dockerfile. Its
-  simulated AI supports all three shapes; SQLite persists responses by request
-  ID and canonical input hash. The backend needs public signing keys only.
-- `POST /api/e2e/run`: operator-authenticated Vercel dispatcher. It calls only
-  `E2E_REMOTE_URL`, rejects a `*.vercel.app` backend, signs requests and returns
-  the simulation report without writing into the serverless filesystem.
-- Vercel variables: `E2E_REMOTE_URL`, `SSA_SIGNING_KEY`, `SSA_SIGNING_KEY_ID`,
-  `E2E_OPERATOR_TOKEN`. No remote endpoint or operator secret is accepted from
-  a browser-supplied request body. The operator token is sent in Authorization.
+- Platform: `social-sim-arena-e2e-test.vercel.app`.
+- Simulated entrant backend: `social-sim-arena-e2e-agent.vercel.app/forecast`.
+- Backend health: `social-sim-arena-e2e-agent.vercel.app/healthz`.
+- Platform dispatch: `POST /api/e2e/run`, authenticated by `E2E_OPERATOR_TOKEN`.
 
-Status: backend TCP/restart tests and dispatcher authorization tests passed
-locally. The server SSH target and test HTTPS domain are still required.
-The remote backend and new dispatcher have not been deployed or verified
-across hosts. Existing online reports are earlier example rehearsals.
+The dispatcher reads `entrants/e2e_remote_backend.json`, checks its endpoint
+against the operator-configured `E2E_REMOTE_URL`, validates the registration,
+and sends signed HTTPS requests from the platform function to the independent
+backend function. The backend reports its own deployment hostname in response
+headers. The platform parses and scores three synthetic rounds and rejects
+late synthetic submissions. It returns both deployment identities in the report.
 
-After server selection: inspect available runtime and reverse proxy; install
-this backend as an isolated service with persistent storage; configure HTTPS;
-load only the test platform public keys; configure Vercel secrets; deploy;
-verify browser onboarding and invoke `/api/e2e/run`; correlate backend requests
-with the Vercel response; publish the report with `caller: vercel-server` and
-`backend: independent-server`. Verify server restart and repeat the request to
-confirm that deployment persistence works, not just local SQLite behavior.
+Private key and operator token are stored only in the platform's Vercel
+environment. The backend has public verification keys only. Its simulated AI
+is deterministic and stateless; this is a real hosted API, not a paid LLM.
+The previous VM/SQLite backend remains an optional alternate deployment.
+
+Use `tools/trigger_hosted_e2e.py` to invoke the platform and save the successful
+report to `site/e2e-results.json`; redeploy the platform to publish that report.
+The trigger reads the operator token from ignored `.local/e2e-operator-token`.
+Never commit or paste that token into a public page or repository.
+
+Automatic refresh stays disabled. This setup exercises a manually triggered
+competition with synthetic source outcomes and a simulated clock. It does not
+fetch production sources or call the original model/participant registry.

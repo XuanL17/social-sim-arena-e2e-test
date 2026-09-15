@@ -4,29 +4,27 @@ from http.server import BaseHTTPRequestHandler
 import json
 import os
 from pathlib import Path
-import tempfile
 from urllib.parse import urlparse
 
 
 def execute():
     url = os.environ.get('E2E_REMOTE_URL', '')
     parsed = urlparse(url)
-    if parsed.scheme != 'https' or not parsed.hostname or parsed.hostname.endswith('.vercel.app'):
+    if parsed.scheme != 'https' or not parsed.hostname or parsed.hostname == 'social-sim-arena-e2e-test.vercel.app' or parsed.hostname.startswith('social-sim-arena-e2e-test-'):
         raise ValueError('Configure an independent server HTTPS URL in E2E_REMOTE_URL')
     signing_config = {key: os.environ.get(key, '') for key in ('SSA_SIGNING_KEY', 'SSA_SIGNING_KEY_ID')}
     if not all(signing_config.values()):
         raise ValueError('Independent test signing key is not configured')
     # Imported only after operator authentication and deployment config checks.
     from tools.run_agent_e2e import run
-    registration = {'entrant_id': 'e2e_remote_backend', 'name': 'Remote simulated AI',
-                    'type': 'participant', 'github': 'assassin808', 'status': 'active',
-                    'route': {'kind': 'agent_api', 'url': url}}
-    with tempfile.TemporaryDirectory(prefix='ssa-remote-e2e-') as directory:
-        path = Path(directory) / 'e2e_remote_backend.json'
-        path.write_text(json.dumps(registration))
-        report = run(registration_path=path, signing_config=signing_config, persist=False)
+    path = Path(__file__).resolve().parents[1] / 'entrants/e2e_remote_backend.json'
+    registration = json.loads(path.read_text())
+    if registration.get('route', {}).get('url') != url:
+        raise ValueError('Configured backend does not match the registered entrant')
+    report = run(registration_path=path, signing_config=signing_config, persist=False)
     report['caller'] = 'vercel-server'
-    report['backend'] = 'independent-server'
+    report['backend'] = 'independent-vercel-project'
+    report['platform_deployment'] = os.environ.get('VERCEL_URL', 'local-test')
     return report
 
 

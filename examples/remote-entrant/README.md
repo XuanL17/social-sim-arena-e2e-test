@@ -1,20 +1,24 @@
-# Independent server entrant
+# Independent simulated AI backend
 
-This backend runs separately from Vercel, accepts signed Agent API requests,
-and simulates an AI without calling a paid model. It forecasts from the supplied
-history and supports scalar, profile and ranking questions. SQLite preserves
-answers across process restarts using request ID and canonical input hash.
+Hosted in the separate Vercel project `social-sim-arena-e2e-agent`:
 
-Deploy this directory to the selected server. Copy only the test platform's
-public `site/keys.json` to `keys.json` beside it; never copy signing private keys.
-Build the Docker image and mount `keys.json` read-only and a persistent `/data`
-volume. Bind the HTTP port to loopback behind the server's HTTPS reverse proxy.
+- HTTPS endpoint: https://social-sim-arena-e2e-agent.vercel.app/forecast
+- Health: https://social-sim-arena-e2e-agent.vercel.app/healthz
 
-- `GET /healthz`: process and database health.
-- `POST /forecast`: signed questions; malformed/expired signatures return 401.
-- `OPTIONS /forecast`: browser onboarding CORS.
-- Environment: `HOST`, `PORT`, `KEYS_FILE`, `DB_FILE`.
+`api/index.py` is the Vercel entry point. It verifies the test platform signature
+and uses `server.forecast` to simulate scalar, profile and ranking answers.
+It uses no paid LLM. Equal inputs produce equal answers across stateless
+function instances; Vercel mode does not claim durable SQLite storage.
+Only public verification keys are deployed here; the private signing key stays
+in the platform project's environment variables.
 
-Server and HTTPS domain are awaiting user selection. This backend has not yet
-been deployed remotely; passing local tests does not prove a Vercel-to-server
-round trip. The existing Vercel example endpoint is not this backend.
+Deploy this backend from this directory, whose `.vercel` binding is independent
+of the repository root's platform binding:
+
+```sh
+vercel deploy --prod --yes --scope yangs-projects-36e22525
+```
+
+The root-level `server.py` and Dockerfile also support a standalone VM/container
+with SQLite persistence, but that is an optional alternative and not the chosen
+hosting setup. No SSH server or custom domain is required for Vercel mode.

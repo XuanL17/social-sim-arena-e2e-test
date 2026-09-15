@@ -87,7 +87,9 @@ def run(url=None, registration_path=None, *, signing_config=None, persist=True):
             answer = agent_api.parse_ranking(reply.text, ranking_round.spec_for(r))
         answers.append({'round_id': r['round_id'], bundle.ANSWER_KEY[tt]: answer})
         calls.append({'round_id': r['round_id'], 'status': reply.status_code,
-                      'idempotency': 'passed', 'bad_signature_status': bad.status_code})
+                      'idempotency': 'passed', 'bad_signature_status': bad.status_code,
+                      'backend_service': reply.headers.get('X-E2E-Backend'),
+                      'backend_deployment': reply.headers.get('X-E2E-Deployment')})
     response = {'schema_version': questions['schema_version'], 'batch_id': questions['batch_id'],
                 'entrant_id': entrant_id, 'answers': answers}
     received = datetime.fromisoformat(cycle.RECEIVED_AT.replace('Z', '+00:00'))
