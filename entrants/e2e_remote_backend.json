@@ -1,0 +1,12 @@
+{
+  "entrant_id": "e2e_remote_backend",
+  "name": "Independent Vercel simulated AI",
+  "organization": "assassin808 E2E test",
+  "type": "participant",
+  "github": "assassin808",
+  "status": "active",
+  "route": {
+    "kind": "agent_api",
+    "url": "https://social-sim-arena-e2e-agent.vercel.app/forecast"
+  }
+}
