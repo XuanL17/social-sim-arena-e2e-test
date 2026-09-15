@@ -1158,7 +1158,7 @@ function renderQuestion(roundId){
   const state=!listed?'<span class="qdue closed">scheduled · listed '+esc(fmtLocal(r.published_at))+'</span>':active?'<span class="qdue live">open · due '+esc(fmtLocal(deadlineOf(r)))+'</span>':r.status==='resolved'?'<span class="qdue done">resolved · '+esc(fmtLocal(r.release_at))+'</span>':'<span class="qdue closed">'+esc(closedWhen(r))+'</span>';
   const f=r.forecasts||{}, ids=Object.keys(f), models=ids.filter(k=>!isBaseline(k));
   const nameOf=k=>forecasterName(k,data);
-  const rows=ids.map(k=>{ const x=f[k]; const err=(typeof rel==='number'&&typeof x.mean==='number')?Math.abs(x.mean-rel):null; const crps=(err!==null&&typeof x.sd==='number')?crpsNormal(x.mean,x.sd,rel):null; return {k,x,err,crps,base:isBaseline(k)}; });
+  const rows=ids.map(k=>{ const x=f[k]; const err=(typeof rel==='number'&&typeof x.mean==='number')?Math.abs(x.mean-rel):null; const published=(r.scores||{})[k]; const crps=published&&typeof published.crps==='number'?published.crps:(k==='crowd'?null:(err!==null&&typeof x.sd==='number')?crpsNormal(x.mean,x.sd,rel):null); return {k,x,err,crps,base:isBaseline(k)}; });
   const resolved=typeof rel==='number';
   rows.sort((a,b)=> resolved ? ((a.crps??a.err??Infinity)-(b.crps??b.err??Infinity)) || String(a.x.filed||'').localeCompare(String(b.x.filed||'')) : String(a.x.filed||'zz').localeCompare(String(b.x.filed||'zz')));
   const mm=models.map(k=>f[k].mean).filter(v=>typeof v==='number').sort((a,b)=>a-b), cons=mm.length?mm[Math.floor(mm.length/2)]:null;
