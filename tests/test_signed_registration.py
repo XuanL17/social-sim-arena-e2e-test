@@ -109,7 +109,10 @@ global.navigator = {clipboard: {writeText() {}}};
 const endpoint = registration();
 apiRadio.checked = false; signedRadio.checked = true; syncRoute();
 const signed = registration();
-process.stdout.write(JSON.stringify({endpoint, signed, ui: {
+const externalUrl = element('reg-open').href;
+element('entrant-github').value = 'assassin808'; syncRegistration();
+const ownerUrl = element('reg-open').href;
+process.stdout.write(JSON.stringify({endpoint, signed, externalUrl, ownerUrl, ui: {
   endpointHidden: element('endpoint-field').hidden,
   keyHidden: element('public-key-field').hidden,
   testHidden: element('api-test').hidden,
@@ -119,6 +122,8 @@ process.stdout.write(JSON.stringify({endpoint, signed, ui: {
     result = subprocess.run(["node", "-e", harness, json.dumps(values)],
                             check=True, capture_output=True, text=True)
     observed = json.loads(result.stdout)
+    assert "/signed-one/social-sim-arena-e2e-test/new/main?" in observed["externalUrl"]
+    assert "/assassin808/social-sim-arena-e2e-test/new/qa-signed-intake-registry?" in observed["ownerUrl"]
     assert observed["endpoint"]["route"] == {
         "kind": "agent_api", "url": "https://example.test/forecast"}
     assert "keys" not in observed["endpoint"]

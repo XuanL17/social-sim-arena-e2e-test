@@ -132,6 +132,7 @@ fieldset.field{border:0;margin:0;padding:0}
 
 <div class="shell">
 <main class="maincol">
+<p class="contract-note"><b>Isolated registration rehearsal.</b> Send registration PRs to <code>assassin808/social-sim-arena-e2e-test</code>, base branch <code>qa-signed-intake-registry</code>. Repository owners can skip the fork step; create a new branch when saving the file.</p>
   <div class="panel">
     <header class="panelhead intro"><div><div class="eyebrow">How it works</div><h2>Receive questions and return forecasts</h2></div></header>
     <div class="panelbody">
@@ -226,7 +227,7 @@ Content-Type: application/json
         <button class="btn dark" id="api-test" type="button">Run test</button>
         <span class="status" id="api-test-status" role="status" aria-live="polite">Not tested yet.</span>
       </div>
-      <p class="contract-note wide" id="signed-post-note" hidden>After registration merges, send forecasts with the signed POST client described in <a href="https://github.com/assassin808/social-sim-arena-e2e-test/blob/main/docs/signed-submissions.md" target="_blank" rel="noopener">docs/signed-submissions.md</a>. The intake accepts only signatures from active public keys in the approved entrant record.</p>
+      <p class="contract-note wide" id="signed-post-note" hidden>After registration merges, send forecasts with the signed POST client described in <a href="https://github.com/assassin808/social-sim-arena-e2e-test/blob/signed-intake-rehearsal/docs/signed-submissions.md" target="_blank" rel="noopener">docs/signed-submissions.md</a>. The intake accepts only signatures from active public keys in the approved entrant record.</p>
     </div>
   </div>
 
@@ -379,6 +380,9 @@ byId('api-test').addEventListener('click', async () => {
 
 // --- the registration file, built here and opened as a pull request there --
 const REPO = 'https://github.com/assassin808/social-sim-arena-e2e-test';
+const REGISTRATION_BASE = 'qa-signed-intake-registry';
+const REPO_OWNER = 'assassin808';
+const REPO_NAME = 'social-sim-arena-e2e-test';
 function registration(){
   // The file is public. A signed-push entrant publishes only its public key;
   // the private key stays in the participant's submission client.
@@ -411,14 +415,18 @@ function syncRegistration(){
   fork.setAttribute('aria-disabled', ready ? 'false' : 'true');
   open.setAttribute('aria-disabled', ready ? 'false' : 'true');
   fork.href = ready ? REPO+'/fork' : '#';
-  open.href = ready ? 'https://github.com/'+encodeURIComponent(reg.github)+'/social-sim-arena/new/main?filename='+encodeURIComponent('entrants/'+reg.entrant_id+'.json')+'&value='+encodeURIComponent(json) : '#';
+  const owner = reg.github.toLowerCase() === REPO_OWNER;
+  fork.textContent = owner ? '1 · Open test repository (no fork needed)' : '1 · Fork the test arena';
+  if (owner && ready) fork.href = REPO;
+  const base = owner ? REGISTRATION_BASE : 'main';
+  open.href = ready ? 'https://github.com/'+encodeURIComponent(reg.github)+'/'+REPO_NAME+'/new/'+base+'?filename='+encodeURIComponent('entrants/'+reg.entrant_id+'.json')+'&value='+encodeURIComponent(json) : '#';
   byId('reg-copy').disabled = !ready;
   byId('reg-status').textContent = !routeOk ? (signed ? 'Enter a key id and a base64-encoded 32-byte Ed25519 public key.' : 'Pass the test to unlock.')
     : !idOk ? 'Entrant id: lower-case letters, digits, . _ -, 2 to 48 characters.'
     : !reg.name || !reg.organization ? 'Fill in the display name and organization.'
     : !ghOk ? 'Enter the GitHub login that will open the pull request.'
     : !signed && browserBlocked ? 'Run the CLI probe before you open the pull request \u2014 this browser could not reach your endpoint.'
-    : 'Fork once, then step 2 opens the file in your fork; commit it and open the pull request against main.';
+    : 'Step 2 opens your registration file. Save on a new branch, then open a PR to the test arena with base '+REGISTRATION_BASE+'.';
 }
 function syncRoute(){
   const signed = document.querySelector('input[name="submission-route"]:checked').value === 'signed_post';
