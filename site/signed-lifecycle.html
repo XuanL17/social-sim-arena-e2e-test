@@ -1,0 +1,11 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>签名提交全链路测试</title>
+<style>body{font:16px/1.6 system-ui;max-width:900px;margin:48px auto;padding:0 20px;color:#182033}h1{font-size:28px}table{border-collapse:collapse;width:100%}th,td{padding:12px;text-align:left;border-bottom:1px solid #ddd}code{overflow-wrap:anywhere}.note{color:#586477}a{color:#2454a6}#status{padding:16px;background:#f0f4fa;border-radius:8px}</style>
+<h1>签名提交全链路测试</h1><p class="note">隔离测试：真实 HTTPS、GitHub 存储、截止时间和 Actions；题目与结果为合成测试数据，不计入正式比赛。</p>
+<p><a href="submit.html">模拟参赛者注册</a></p><p id="status">正在读取自动测试结果…</p>
+<table hidden id="results"><thead><tr><th>参赛者</th><th>最终预测</th><th>测试结果</th><th>CRPS（越低越好）</th></tr></thead><tbody><tr><td id="entrant"></td><td id="forecast"></td><td id="outcome"></td><td id="score"></td></tr></tbody></table>
+<p id="round"></p><p id="times"></p><p><a id="evidence" hidden target="_blank" rel="noopener">查看自动化运行证据</a></p><p class="note">每 30 秒读取一次 GitHub 上的最新结果。</p>
+<script>
+const url='https://raw.githubusercontent.com/assassin808/social-sim-arena-e2e-test/qa-signed-intake-registry/qa-signed-lifecycle/report.json';
+async function load(){try{const response=await fetch(url+'?t='+Date.now(),{cache:'no-store'});if(!response.ok)throw new Error();const r=await response.json();if(r.mode!=='synthetic-clock-rehearsal'||r.status!=='passed')throw new Error();document.getElementById('status').textContent='已通过：截止后自动揭示 → 评分 → 发布';document.getElementById('entrant').textContent=r.entrant;document.getElementById('forecast').textContent='mean '+r.revealed_forecast.mean+' / sd '+r.revealed_forecast.sd;document.getElementById('outcome').textContent=r.synthetic_outcome;document.getElementById('score').textContent=Number(r.crps).toFixed(6);document.getElementById('results').hidden=false;document.getElementById('round').textContent='测试轮次：'+r.round_id;document.getElementById('times').textContent='截止：'+r.lock_at+'；发布报告：'+r.generated_at;const a=document.getElementById('evidence');if(r.run_url.startsWith('https://github.com/assassin808/social-sim-arena-e2e-test/actions/runs/')){a.href=r.run_url;a.hidden=false;}}catch(e){document.getElementById('status').textContent='测试结果尚未发布，或暂时读取失败。稍后自动重试。';document.getElementById('results').hidden=true;}}
+load();setInterval(load,30000);
+</script></html>
