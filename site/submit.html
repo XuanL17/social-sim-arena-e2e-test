@@ -415,7 +415,7 @@ function syncRegistration(){
   fork.setAttribute('aria-disabled', ready ? 'false' : 'true');
   open.setAttribute('aria-disabled', ready ? 'false' : 'true');
   fork.href = ready ? REPO+'/fork' : '#';
-  const owner = reg.github.toLowerCase() === REPO_OWNER;
+  const owner = (reg.github || '').toLowerCase() === REPO_OWNER;
   fork.textContent = owner ? '1 · Open test repository (no fork needed)' : '1 · Fork the test arena';
   if (owner && ready) fork.href = REPO;
   const base = owner ? REGISTRATION_BASE : 'main';

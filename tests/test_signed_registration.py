@@ -106,6 +106,8 @@ global.document = {
 };
 global.navigator = {clipboard: {writeText() {}}};
 """ + page_script + r"""
+element('entrant-github').value = ''; syncRegistration();
+element('entrant-github').value = values['entrant-github']; syncRegistration();
 const endpoint = registration();
 apiRadio.checked = false; signedRadio.checked = true; syncRoute();
 const signed = registration();
