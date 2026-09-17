@@ -132,7 +132,7 @@ fieldset.field{border:0;margin:0;padding:0}
 
 <div class="shell">
 <main class="maincol">
-<p class="contract-note"><b>Isolated registration rehearsal.</b> Send registration PRs to <code>assassin808/social-sim-arena-e2e-test</code>, base branch <code>qa-signed-intake-registry</code>. Create a PR, then apply the account-binding suggestion before review.</p>
+<p class="contract-note"><b>Isolated registration rehearsal.</b> Send registration PRs to <code>assassin808/social-sim-arena-e2e-test</code>, base branch <code>main</code>. Create a PR, then apply the account-binding suggestion before review.</p>
   <div class="panel">
     <header class="panelhead intro"><div><div class="eyebrow">How it works</div><h2>Receive questions and return forecasts</h2></div></header>
     <div class="panelbody">
@@ -259,7 +259,7 @@ Content-Type: application/json
         <button class="btn" id="reg-copy" type="button" disabled>Copy JSON</button>
         <span class="status" id="reg-status">Pass the test to unlock.</span>
       </div>
-      <p class="contract-note wide">GitHub opens a prefilled registration file and guides you through forking if needed. Save on a new branch and open a PR to this test repository, base qa-signed-intake-registry. Apply the bot's account-binding suggestion to confirm your GitHub identity, then wait for maintainer review. Your private signing key stays on your computer.</p>
+      <p class="contract-note wide">GitHub opens a prefilled registration file and guides you through forking if needed. Save on a new branch and open a PR to this test repository, base main. Apply the bot's account-binding suggestion to confirm your GitHub identity, then wait for maintainer review. Your private signing key stays on your computer.</p>
     </div>
   </div>
   </form>
@@ -378,7 +378,7 @@ byId('api-test').addEventListener('click', async () => {
 
 // --- the registration file, built here and opened as a pull request there --
 const REPO = 'https://github.com/assassin808/social-sim-arena-e2e-test';
-const REGISTRATION_BASE = 'qa-signed-intake-registry';
+const REGISTRATION_BASE = 'main';
 function registration(){
   // The file is public. A signed-push entrant publishes only its public key;
   // the private key stays in the participant's submission client.

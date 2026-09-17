@@ -126,7 +126,7 @@ process.stdout.write(JSON.stringify({endpoint, signed, externalUrl, ownerUrl, ui
     assert observed["externalUrl"] == observed["ownerUrl"]
     assert observed["signed"]["github"] == ""
     assert 'id="entrant-github"' not in html
-    assert "/assassin808/social-sim-arena-e2e-test/new/qa-signed-intake-registry?" in observed["ownerUrl"]
+    assert "/assassin808/social-sim-arena-e2e-test/new/main?" in observed["ownerUrl"]
     assert observed["endpoint"]["route"] == {
         "kind": "agent_api", "url": "https://example.test/forecast"}
     assert "keys" not in observed["endpoint"]
