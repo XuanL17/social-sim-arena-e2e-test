@@ -39,3 +39,5 @@ github field is intentional until confirmation.
 
 Local registration form and workflow-script fixtures passed. Signed answer POST
 implementation was not modified. The previously tested OAuth flow is superseded.
+
+After applying the binding suggestion, all three checks passed (ownership/schema, binding workflow, hygiene).
