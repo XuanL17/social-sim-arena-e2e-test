@@ -104,17 +104,18 @@ global.document = {
   querySelector() { return signedRadio.checked ? signedRadio : apiRadio; },
   querySelectorAll() { return [apiRadio, signedRadio]; }
 };
+global.fetch = async () => ({ok:false,status:401});
+global.sessionStorage = {getItem(){return null;}};
 global.navigator = {clipboard: {writeText() {}}};
 """ + page_script + r"""
-element('entrant-github').value = ''; syncRegistration();
-element('entrant-github').value = values['entrant-github']; syncRegistration();
+githubSession = null; syncRegistration();
+const loggedOutDisabled = element('reg-open').disabled;
+githubSession = {login:'signed-one',csrf:'test'}; syncRegistration();
 const endpoint = registration();
 apiRadio.checked = false; signedRadio.checked = true; syncRoute();
 const signed = registration();
-const externalUrl = element('reg-open').href;
-element('entrant-github').value = 'assassin808'; syncRegistration();
-const ownerUrl = element('reg-open').href;
-process.stdout.write(JSON.stringify({endpoint, signed, externalUrl, ownerUrl, ui: {
+const signedEnabled = !element('reg-open').disabled;
+process.stdout.write(JSON.stringify({endpoint, signed, loggedOutDisabled, signedEnabled, ui: {
   endpointHidden: element('endpoint-field').hidden,
   keyHidden: element('public-key-field').hidden,
   testHidden: element('api-test').hidden,
@@ -124,8 +125,10 @@ process.stdout.write(JSON.stringify({endpoint, signed, externalUrl, ownerUrl, ui
     result = subprocess.run(["node", "-e", harness, json.dumps(values)],
                             check=True, capture_output=True, text=True)
     observed = json.loads(result.stdout)
-    assert "/signed-one/social-sim-arena-e2e-test/new/main?" in observed["externalUrl"]
-    assert "/assassin808/social-sim-arena-e2e-test/new/qa-signed-intake-registry?" in observed["ownerUrl"]
+    assert observed["loggedOutDisabled"]
+    assert observed["signedEnabled"]
+    assert 'id="entrant-github"' not in html
+    assert observed["signed"]["github"] == "signed-one"
     assert observed["endpoint"]["route"] == {
         "kind": "agent_api", "url": "https://example.test/forecast"}
     assert "keys" not in observed["endpoint"]

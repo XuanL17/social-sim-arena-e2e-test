@@ -27,6 +27,14 @@
   ],
   "routes": [
     {
+      "src": "/api/auth/(.*)",
+      "dest": "/api/registration.py"
+    },
+    {
+      "src": "/api/registration",
+      "dest": "/api/registration.py"
+    },
+    {
       "src": "/api/v1/forecasts",
       "dest": "/api/forecasts.py"
     },

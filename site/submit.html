@@ -104,7 +104,7 @@ fieldset.field{border:0;margin:0;padding:0}
 <script defer src="/_vercel/insights/script.js"></script>
 <link rel="preload" href="fonts/inconsolata-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="typography.css?v=21">
 </head>
-<body class="site-submit"><div role="status" style="padding:10px;background:#fff1bd;color:#302400;text-align:center;font:14px sans-serif">E2E TEST — inherited data is a snapshot · <a href="e2e.html">Open test dashboard / 测试控制台</a></div>
+<body class="site-submit"><div role="status" style="padding:10px;background:#fff1bd;color:#302400;text-align:center;font:14px sans-serif">E2E TEST — inherited data is a snapshot · <a href="e2e.html">Open test dashboard</a></div>
 <nav class="top site-nav" aria-label="Main navigation">
   <div class="in">
     <a class="brand" href="index.html#leaderboard"><img src="logo.svg" alt=""><span class="brand-name">Social Simulation Arena</span><span class="by">by MIT</span></a>
@@ -132,7 +132,7 @@ fieldset.field{border:0;margin:0;padding:0}
 
 <div class="shell">
 <main class="maincol">
-<p class="contract-note"><b>Isolated registration rehearsal.</b> Send registration PRs to <code>assassin808/social-sim-arena-e2e-test</code>, base branch <code>qa-signed-intake-registry</code>. Repository owners can skip the fork step; create a new branch when saving the file.</p>
+<p class="contract-note"><b>Isolated registration rehearsal.</b> Send registration PRs to <code>assassin808/social-sim-arena-e2e-test</code>, base branch <code>qa-signed-intake-registry</code>. Connect GitHub to submit a registration PR under your verified account.</p>
   <div class="panel">
     <header class="panelhead intro"><div><div class="eyebrow">How it works</div><h2>Receive questions and return forecasts</h2></div></header>
     <div class="panelbody">
@@ -248,20 +248,21 @@ Content-Type: application/json
           <input id="entrant-contact" name="contact" type="email" maxlength="120" placeholder="your.email@company.com" autocomplete="email">
         </div>
         <div class="field">
-          <label for="entrant-github">GitHub username <span class="req">*</span></label>
-          <input id="entrant-github" name="github" type="text" required pattern="[A-Za-z0-9](?:[A-Za-z0-9]|-(?=[A-Za-z0-9])){0,38}" placeholder="octocat" autocomplete="username" spellcheck="false">
-          <p class="hint">Your personal login, the account that will fork and open the pull request. Not your company's organization: CI merges only when the file's owner and the pull request's author are the same account.</p>
+          <label>GitHub account <span class="req">*</span></label>
+          <p id="github-account" role="status">Checking login…</p>
+          <a class="btn" id="github-connect" href="/api/auth/github/start">Connect GitHub</a>
+          <p class="hint">Your verified GitHub account is bound automatically. Registration creates a PR as this account; GitHub requests public repository access. Generate signing keys locally and submit only your public key.</p>
         </div>
       </div>
       <div class="codelabel">entrants/<span id="reg-filename">&lt;model-or-team-name&gt;</span>.json</div>
       <pre class="code" id="reg-json">{ … fill in the form above … }</pre>
       <div class="copyrow">
-        <a class="btn" id="reg-fork" href="#" target="_blank" rel="noopener" aria-disabled="true">1 · Fork the arena</a>
-        <a class="btn dark" id="reg-open" href="#" target="_blank" rel="noopener" aria-disabled="true">2 · Submit for review</a>
+        <button class="btn dark" id="reg-open" type="button" disabled>Submit registration</button>
+        <a id="registration-pr" hidden target="_blank" rel="noopener">View registration PR</a>
         <button class="btn" id="reg-copy" type="button" disabled>Copy JSON</button>
         <span class="status" id="reg-status">Pass the test to unlock.</span>
       </div>
-      <p class="contract-note wide">Outside contributors cannot write to the arena directly, so the file goes in through your fork: step 1 forks this test fork under your GitHub login (once), step 2 opens the file in that fork, filled in. Commit it there and GitHub offers the pull request back to this test fork; once it merges, the registered route is active. Scheduled calls are disabled here; use the test dashboard rehearsal command after registration.</p>
+      <p class="contract-note wide">Connect GitHub, check the account displayed above, and submit. We create the registration PR using your authenticated account. Registration takes effect after review and merge; this does not submit an answer.</p>
     </div>
   </div>
   </form>
@@ -379,17 +380,15 @@ byId('api-test').addEventListener('click', async () => {
 });
 
 // --- the registration file, built here and opened as a pull request there --
-const REPO = 'https://github.com/assassin808/social-sim-arena-e2e-test';
-const REGISTRATION_BASE = 'qa-signed-intake-registry';
-const REPO_OWNER = 'assassin808';
-const REPO_NAME = 'social-sim-arena-e2e-test';
+let githubSession = null;
+let registrationBusy = false;
 function registration(){
   // The file is public. A signed-push entrant publishes only its public key;
   // the private key stays in the participant's submission client.
   const reg = {entrant_id: byId('entrant-id').value.trim(), name: byId('entrant-name').value.trim(), organization: byId('entrant-org').value.trim(), type: 'participant'};
   const contact = byId('entrant-contact').value.trim();
   if (contact) reg.contact = contact;
-  const github = byId('entrant-github').value.trim();
+  const github = githubSession && githubSession.login;
   if (github) reg.github = github;
   const signed = document.querySelector('input[name="submission-route"]:checked').value === 'signed_post';
   if (signed) reg.keys = [{id: byId('entrant-key-id').value.trim(), alg: 'ed25519', public: byId('entrant-public-key').value.trim(), revoked: false}];
@@ -407,26 +406,16 @@ function syncRegistration(){
   const endpointOk = !signed && (apiProbePassed || browserBlocked) && /^https:\/\//.test(reg.route.url);
   const keyOk = signed && /^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$/.test(reg.keys[0].id) && /^[A-Za-z0-9+/]{43}=$/.test(reg.keys[0].public);
   const routeOk = endpointOk || keyOk;
-  const ready = routeOk && idOk && ghOk && reg.name && reg.organization;
-  // The file is written into the participant's own fork: GitHub refuses a
-  // direct edit from anyone without write access to the arena, and the fork's
-  // editor turns the commit into a pull request against main by itself.
-  const fork = byId('reg-fork'), open = byId('reg-open');
-  fork.setAttribute('aria-disabled', ready ? 'false' : 'true');
-  open.setAttribute('aria-disabled', ready ? 'false' : 'true');
-  fork.href = ready ? REPO+'/fork' : '#';
-  const owner = (reg.github || '').toLowerCase() === REPO_OWNER;
-  fork.textContent = owner ? '1 · Open test repository (no fork needed)' : '1 · Fork the test arena';
-  if (owner && ready) fork.href = REPO;
-  const base = owner ? REGISTRATION_BASE : 'main';
-  open.href = ready ? 'https://github.com/'+encodeURIComponent(reg.github)+'/'+REPO_NAME+'/new/'+base+'?filename='+encodeURIComponent('entrants/'+reg.entrant_id+'.json')+'&value='+encodeURIComponent(json) : '#';
+  const ready = !registrationBusy && githubSession && routeOk && idOk && ghOk && reg.name && reg.organization;
+  const open = byId('reg-open');
+  open.disabled = !ready;
   byId('reg-copy').disabled = !ready;
-  byId('reg-status').textContent = !routeOk ? (signed ? 'Enter a key id and a base64-encoded 32-byte Ed25519 public key.' : 'Pass the test to unlock.')
+  byId('reg-status').textContent = !githubSession ? 'Connect GitHub before submitting.' : !routeOk ? (signed ? 'Enter a key id and a base64-encoded 32-byte Ed25519 public key.' : 'Pass the test to unlock.')
     : !idOk ? 'Entrant id: lower-case letters, digits, . _ -, 2 to 48 characters.'
     : !reg.name || !reg.organization ? 'Fill in the display name and organization.'
-    : !ghOk ? 'Enter the GitHub login that will open the pull request.'
+    : !ghOk ? 'Reconnect your GitHub account.'
     : !signed && browserBlocked ? 'Run the CLI probe before you open the pull request \u2014 this browser could not reach your endpoint.'
-    : 'Step 2 opens your registration file. Save on a new branch, then open a PR to the test arena with base '+REGISTRATION_BASE+'.';
+    : 'Ready to submit as @'+githubSession.login+'.';
 }
 function syncRoute(){
   const signed = document.querySelector('input[name="submission-route"]:checked').value === 'signed_post';
@@ -441,13 +430,71 @@ function syncRoute(){
   byId('entrant-public-key').required = signed;
   syncRegistration();
 }
-for (const id of ['api-url','entrant-id','entrant-name','entrant-org','entrant-contact','entrant-github','entrant-key-id','entrant-public-key']) byId(id).addEventListener('input', syncRegistration);
+for (const id of ['api-url','entrant-id','entrant-name','entrant-org','entrant-contact','entrant-key-id','entrant-public-key']) byId(id).addEventListener('input', syncRegistration);
 document.querySelectorAll('input[name="submission-route"]').forEach(input => input.addEventListener('change', syncRoute));
 byId('reg-copy').addEventListener('click', async () => {
   try { await navigator.clipboard.writeText(byId('reg-json').textContent); byId('reg-status').textContent = 'Copied.'; } catch (e) { byId('reg-status').textContent = 'Copy failed; select the text above.'; }
 });
+const draftFields = ['entrant-id','entrant-name','entrant-org','entrant-contact','entrant-key-id','entrant-public-key','api-url'];
+byId('github-connect').addEventListener('click', () => {
+  // Save public form fields only, never credentials or private keys.
+  try { sessionStorage.setItem('ssa-registration-draft', JSON.stringify({
+    fields: Object.fromEntries(draftFields.map(id => [id, byId(id).value])),
+    route: document.querySelector('input[name="submission-route"]:checked').value
+  })); } catch (_) {}
+});
+async function loadGitHubSession(){
+  try {
+    const response = await fetch('/api/auth/session', {credentials:'same-origin', cache:'no-store'});
+    if (!response.ok) throw new Error(response.status === 503 ? 'GitHub login is not configured yet.' : 'Not connected');
+    githubSession = await response.json();
+    byId('github-account').textContent = 'Connected as @'+githubSession.login;
+    byId('github-connect').textContent = 'Switch GitHub account';
+  } catch (error) {
+    githubSession = null;
+    byId('github-account').textContent = error.message;
+    byId('github-connect').textContent = 'Connect GitHub';
+  }
+  syncRegistration();
+}
+byId('reg-open').addEventListener('click', async () => {
+  if (byId('reg-open').disabled || !githubSession) return;
+  if (!byId('agent-form').reportValidity()) return;
+  registrationBusy = true; syncRegistration();
+  byId('reg-status').textContent = 'Creating your registration PR…';
+  byId('registration-pr').hidden = true;
+  let message;
+  try {
+    const response = await fetch('/api/registration', {method:'POST', credentials:'same-origin',
+      headers:{'Content-Type':'application/json','X-CSRF-Token':githubSession.csrf},
+      body:JSON.stringify(registration())});
+    const result = await response.json();
+    if (!response.ok) {
+      if (response.status === 401) { githubSession = null; await loadGitHubSession(); }
+      const code = result.error && result.error.code;
+      const reasons = {login_required:'Please reconnect GitHub.', entrant_already_registered:'This entrant ID is already registered. Choose another ID.',
+        invalid_registration:'Check your registration fields and public key.', github_permission_or_rate_limit:'GitHub denied access or rate-limited the request. Check authorization and retry later.',
+        registration_pr_closed:'Your registration PR was closed. Please contact the maintainer.',
+        github_retry_required:'GitHub is not ready yet. Wait a moment and retry; an existing matching PR will be reused.'};
+      throw new Error(reasons[code] || 'Registration was not confirmed. Please retry.');
+    }
+    if (!result.pr_url || !result.pr_url.startsWith('https://github.com/assassin808/social-sim-arena-e2e-test/pull/')) throw new Error('Unexpected registration response.');
+    byId('registration-pr').href = result.pr_url; byId('registration-pr').hidden = false;
+    message = result.status === 'merged' ? 'Registration merged.' : 'PR submitted. Registration awaits review and merge.';
+    try { sessionStorage.removeItem('ssa-registration-draft'); } catch (_) {}
+  } catch (error) { message = error.message; }
+  finally { registrationBusy = false; syncRegistration(); byId('reg-status').textContent = message; }
+});
+try {
+  const draft = JSON.parse(sessionStorage.getItem('ssa-registration-draft') || 'null');
+  if (draft) {
+    for (const id of draftFields) if (typeof draft.fields[id] === 'string') byId(id).value = draft.fields[id];
+    for (const radio of document.querySelectorAll('input[name="submission-route"]')) radio.checked = radio.value === draft.route;
+  }
+} catch (_) {}
 byId('agent-form').addEventListener('submit', e => e.preventDefault());
 syncRoute();
+loadGitHubSession();
 </script>
 </body>
 </html>
