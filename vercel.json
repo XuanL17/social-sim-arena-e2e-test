@@ -4,7 +4,8 @@
   "git": {
     "deploymentEnabled": {
       "ui/site-refinement": false,
-      "qa-results": false
+      "qa-results": false,
+      "sealed": false
     }
   },
   "builds": [
@@ -12,7 +13,7 @@
       "src": "api/*.py",
       "use": "@vercel/python",
       "config": {
-        "includeFiles": "{site/data.json,schema/*.schema.json,ssa/questionnaire_api.py,ssa/registry.py,ssa/bundle_api.py,ssa/bundle.py,ssa/participants.py,tools/validate_submission.py,entrants/*.json,site/keys.json,examples/agent-api/server.py,questions/bundles/*.json,examples/bundle/*.json,tools/run_agent_e2e.py,tools/run_sandbox_cycle.py,tools/accept_bundle.py,tools/validate_bundle.py,ssa/*.py,ssa/adapters/*.py}"
+        "includeFiles": "{site/data.json,schema/*.schema.json,schema/reserved-entrant-ids.json,ssa/**,tools/validate_submission.py,entrants/*.json,site/keys.json,examples/agent-api/server.py,questions/season0.json,questions/bundles/*.json,examples/bundle/*.json,tools/run_agent_e2e.py,tools/run_sandbox_cycle.py,tools/accept_bundle.py,tools/validate_bundle.py}"
       }
     },
     {
@@ -25,6 +26,10 @@
     }
   ],
   "routes": [
+    {
+      "src": "/api/v1/forecasts",
+      "dest": "/api/forecasts.py"
+    },
     {
       "src": "/api/e2e/run",
       "dest": "/api/e2e_run.py"
