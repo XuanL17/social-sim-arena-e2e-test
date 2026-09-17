@@ -1,38 +1,76 @@
-# UI 测试工程师独立复测 · 2026-09-15
+# Independent browser re-test of the site, 2026-09-15
 
-## 范围与方法
+## Scope and method
 
-在 `https://social-sim-arena-e2e-test.vercel.app` 用实际浏览器完成只读交互，检查标量/profile/ranking 详情、筛选、注册表单锁定状态及 390×844 手机视口。读取线上 `/data.json` 作为成绩对照（generated_at `2026-09-15T05:04:07Z`）。没有触发 Run test、LLM、注册 PR 或写入参赛数据；没有修改实现、部署。手机视口测试后已恢复。未发现本任务路径适用的 AGENTS.md。
+Read-only interaction in a real browser at
+`https://social-sim-arena-e2e-test.vercel.app`: number, profile and ranking
+detail pages, filters, the locked state of the registration form, and a 390x844
+phone viewport. Live `/data.json` (`generated_at 2026-09-15T05:04:07Z`) was the
+reference for scores. Run test was not triggered, no model was called, no
+registration pull request was opened, no entrant data was written, and nothing
+was changed or deployed. The phone viewport was restored afterwards.
 
-## 失败：可独立复现
+## Failing, independently reproducible
 
-### UI-01 · P1 · Crowd 的两种详情页分数不一致
+### UI-01 - P1 - Crowd scores differently on two pages
 
-- 题目页：[Michigan August prelim](https://social-sim-arena-e2e-test.vercel.app/#question/umich-2026-08-prelim)。找到 Crowd 行，显示 `62.2 ± 12.0 / Error 11.2 / CRPS 5.52`：前轮题目表修复复测通过。
-- 点击该行进入 [Crowd 单条预测详情](https://social-sim-arena-e2e-test.vercel.app/#forecast/umich-2026-08-prelim/crowd)。实际显示 `CRPS 6.70`，其余相同题号、参赛者与预测一致。
-- 期望：两个页面均使用同一权威成绩 `5.523`，格式化为 `5.52`；不能在单条预测页把分位数预测退化为正态分布重算。
-- 证据：实际浏览器 DOM 文本，题目行 `22 Crowd Aug 12, 07:00 AM 62.2 ± 12.0 11.2 5.52`；单条页 Error 卡 `11.2 / CRPS 6.70`。
+- Question page, [Michigan August
+  prelim](https://social-sim-arena-e2e-test.vercel.app/#question/umich-2026-08-prelim):
+  the Crowd row reads `62.2 +/- 12.0 / Error 11.2 / CRPS 5.52`. The question
+  table itself was fixed in an earlier round and passes.
+- Clicking that row opens the [single Crowd
+  forecast](https://social-sim-arena-e2e-test.vercel.app/#forecast/umich-2026-08-prelim/crowd),
+  which reads `CRPS 6.70` -- same round, same entrant, same forecast.
+- Expected: both pages use the one published score `5.523`, formatted `5.52`. The
+  single-forecast page must not refit a quantile forecast as a normal.
+- Evidence, from the real DOM: question row `22 Crowd Aug 12, 07:00 AM 62.2 +/-
+  12.0 11.2 5.52`; forecast page Error tile `11.2 / CRPS 6.70`.
 
-### UI-02 · P1 · 已评分多维/排名题仍显示等待结算，成绩缺失
+### UI-02 - P1 - Scored profile and ranking questions still read "awaiting resolution"
 
-- [Google Trends 9/5 profile](https://social-sim-arena-e2e-test.vercel.app/#question/trends-basket-2026-09-05)：实际 `locked · answer expected Sep 5`、`no number forecasts`，表头 `Error / CRPS`，所有分数为点号。
-- [Wikipedia 9/6 ranking](https://social-sim-arena-e2e-test.vercel.app/#question/wiki-top10-2026-09-06)：实际 `locked · answer expected Sep 8`、`no number forecasts`，表头 `Error / CRPS`，所有分数为点号。
-- 线上 `/data.json` 已含 `profile.rounds` 的 Trends 9/5 GLM web+sfc `energy: 1.2464`、Trends 9/12 `energy: 2.4927`，以及 `ranking.rounds` 的 Wiki 9/6 Claude Opus web+sfc `loss: 0.806`。但主 `rounds` 中这三题仍是 `awaiting_resolution`。
-- 期望：已结算题的主状态与权威成绩一致；profile 展示 Energy 和各维结果，ranking 展示对应排名损失及实际排名，不用标量 CRPS 列。问题包括数据状态同步与题型模板两个层面。
-- [Civiqs 16-cell w37](https://social-sim-arena-e2e-test.vercel.app/#question/civiqs-profile-2026-w37) 同样套用标量模板；该题本次没有权威结算结果，不将空分数单独判错。
+- [Google Trends
+  9/5](https://social-sim-arena-e2e-test.vercel.app/#question/trends-basket-2026-09-05):
+  reads `locked - answer expected Sep 5`, `no number forecasts`, headers
+  `Error / CRPS`, every score a dot.
+- [Wikipedia
+  9/6](https://social-sim-arena-e2e-test.vercel.app/#question/wiki-top10-2026-09-06):
+  reads `locked - answer expected Sep 8`, same number template.
+- Live `/data.json` already carries `profile.rounds` with Trends 9/5 GLM web+sfc
+  `energy: 1.2464` and Trends 9/12 `energy: 2.4927`, and `ranking.rounds` with
+  Wiki 9/6 Claude Opus web+sfc `loss: 0.806`. In the main `rounds` array all
+  three are still `awaiting_resolution`.
+- Expected: a scored question's status matches its published score; a profile
+  shows Energy and its per-cell result, a ranking shows its loss and the actual
+  order, neither borrows the number template's CRPS column. Two layers are
+  involved: the status the pipeline publishes, and the page template.
+- [Civiqs 16-cell
+  w37](https://social-sim-arena-e2e-test.vercel.app/#question/civiqs-profile-2026-w37)
+  wears the same number template, but has no published result this round, so its
+  empty scores are not counted as a separate defect.
 
-## 通过与覆盖边界
+**Both are fixed.** `attach_round_scores` now marks a scored profile or ranking
+round resolved and carries its outcome, and one `forecastScore` function serves
+the question, forecast and entrant pages. Ported upstream as
+[PR #124](https://github.com/Social-Atoms/social-sim-arena/pull/124).
 
-| 检查 | 实际结果 |
-|---|---|
-| Questions → Open → 搜索 Civiqs | 返回 Civiqs 开放题，包括16-cell题；截止时间、题型和来源链接可见 |
-| 无匹配词 `zzqa-no-match` | 清晰显示 No matching questions，并建议调整过滤条件 |
-| Questions → Enter the arena → Register an agent | 正常进入 submit.html；人类参赛入口保持 disabled |
-| 注册表单未测试状态 | 填写普通测试字符串、HTTP URL 与非法 ID 后 Submit for review、Copy JSON 仍 disabled；未点击 Run test，所以本轮不声称验证了发送前的错误提示 |
-| 手机 390×844 | 题目卡、状态筛选、注册说明可读可达；主文档宽度不超过视口，导航局部可横向滚动；仅一个代表性视口，不代表全设备验收 |
-| 手机 profile 行点击 | Civiqs w38 Persistence 行可打开单条预测，16个细分组 mean/sd 表可读 |
-| 手机测试清理 | 已恢复默认视口 |
+## Passing, and where the coverage stops
 
-## 建议回归验收
+| Check | Result |
+| --- | --- |
+| Questions -> Open -> search "Civiqs" | returns the open Civiqs questions including the 16-cell one, with deadline, shape and source link visible |
+| No match, `zzqa-no-match` | shows "No matching questions" and suggests changing the filter |
+| Questions -> Enter the arena -> Register an agent | opens submit.html; the human entry point stays disabled |
+| Registration form before the endpoint test | with ordinary test strings, an HTTP URL and an illegal id, Submit for review and Copy JSON stay disabled. Run test was not clicked, so no claim is made about pre-send error messages |
+| Phone, 390x844 | question cards, status filters and the registration copy are readable and reachable; the document does not exceed the viewport and the nav scrolls sideways locally. One representative viewport only |
+| Phone, profile row | the Civiqs w38 Persistence row opens its single forecast and the 16-cell mean/sd table is readable |
+| Phone cleanup | default viewport restored |
 
-修复后应同时比对题目表、单条预测、任务榜的权威成绩；至少用 Crowd 分位数标量、已结算5-cell profile、已结算10-item ranking 三个固定历史样本。仅截图或单页渲染成功不能证明成绩一致。此报告不包含支付、外部写入、自动结算或免费模型可靠性验证。
+## Suggested regression on any future fix
+
+Compare the question table, the single forecast and the task board against the
+same published score, using three fixed historical samples: a Crowd quantile
+number, a resolved 5-cell profile and a resolved 10-item ranking. A screenshot,
+or one page rendering without error, does not show that the scores agree.
+
+This report does not cover payment, external writes, automatic resolution or
+free-model reliability.

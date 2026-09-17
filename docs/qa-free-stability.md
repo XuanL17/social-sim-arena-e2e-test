@@ -1,27 +1,48 @@
-# 免费模型重复/并发/限流验证
+# Free models: repeats, races and rate limits
 
-## 本轮真实 HTTPS 并发
+## Real concurrent HTTPS
 
-四模型各发送两个同时到达、正文完全相同的冷缓存请求；成功模型再重放一次。
+Each of four models received two simultaneous cold-cache requests with identical
+bodies; a model that answered then got one replay.
 
-- Liquid：两个200，生成ID不同，sd=12与10；重放命中最后缓存。**并发幂等失败**。
-- Dots：两个200，生成ID不同，sd=1与10；重放命中最后缓存。**并发幂等失败**。
-- Nex：两个502，约45秒；失败保留。
-- Gemma：两个502，约0.4秒；失败保留。
+- **Liquid** -- two 200s, different generation IDs, `sd` 12 and 10; the replay hit
+  the last cache entry. **Concurrent idempotence fails.**
+- **Dots** -- two 200s, different generation IDs, `sd` 1 and 10; the replay hit the
+  last cache entry. **Concurrent idempotence fails.**
+- **Nex** -- two 502s, about 45 s. The failure is kept.
+- **Gemma** -- two 502s, about 0.4 s. The failure is kept.
 
-成功请求响应报告OpenRouter费用0；不采用付费回退。结果在 `qa-stability/latest.json`。Runtime Cache仅提供复用，不提供原子抢占或全局单次执行；不能将串行重放成功等同于并发幂等。
+Every successful response reported an OpenRouter cost of 0; there is no paid
+fallback. Results are in `qa-stability/latest.json`.
 
-## 已有离线故障注入
+The Runtime Cache offers reuse, not atomic claim or global single execution, so a
+successful serial replay must not be read as concurrent idempotence.
 
-6项通过：429/5xx、超时不重试、不缓存错误；无效JSON/预测拒绝；缺失或非零cost拒绝；输入变化隔离缓存；不允许白名单外模型覆盖。离线429注入不等于真实限流压力验收，不主动耗尽账号配额。
+## Offline fault injection
 
-## 有限期观察
+Six checks pass: 429 and 5xx; no retry on timeout; errors not cached; invalid
+JSON and invalid forecasts refused; a missing or non-zero cost refused; a changed
+input isolating the cache; a model outside the allowlist refused as an override.
+Injecting a 429 offline is not acceptance under real rate limiting, and we do not
+deliberately exhaust the account quota.
 
-只读GitHub工作流每6小时对四个免费模型各发一个新请求，成功后再验证缓存重放，每轮最多4次新推理（提供商故障不会自动重试或付费降级）。2026-09-30后不再调用。每轮结果通过Actions artifact保留30天；仓库无自动写入权限，网站报告不会自动更新。
+## Time-boxed observation
 
-`python tools/qa_free_stability.py --race` 可复现并发；无 `--race` 为定时单请求模式。使用协议公开测试签名种子，不需要把私有签名密钥或OpenRouter key放进Actions。
+A read-only GitHub workflow sends one fresh request to each of the four free
+models every six hours and, on success, verifies the cache replay: at most four
+new inferences per run, with no automatic retry and no paid downgrade when a
+provider fails. It stops calling after 2026-09-30. Each run's result is kept as
+an Actions artifact for 30 days and published to the `qa-results` branch; see
+[qa-auto-publish.md](qa-auto-publish.md).
 
-长期稳定性需积累多轮运行后计算，当前不能宣称通过。并发严格幂等仍需原子共享存储/锁与结果持久化支持，本轮只确认并留证，不伪称已修复。
+```sh
+python tools/qa_free_stability.py --race   # reproduce the race
+python tools/qa_free_stability.py          # scheduled single-request mode
+```
 
+It signs with the protocol's public test seed, so neither a private signing key
+nor an OpenRouter key needs to live in Actions.
 
-更新：用户已授权专用 qa-results 分支自动发布；网页读取最新结果，不再仅停留在部署快照。具体权限、范围和失败回退见 qa-auto-publish.md。原文中仅归档/未授权描述为此前状态。
+Long-run stability needs many runs before it can be computed, and cannot be
+claimed now. Strict concurrent idempotence needs atomic shared storage or a lock
+plus durable results; this round only confirms and records the gap.

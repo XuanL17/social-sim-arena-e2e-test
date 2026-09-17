@@ -12,16 +12,16 @@
     } catch(error) {
       live=false;
       try {const reply=await fetch('/'+path,{cache:'no-store'});if(!reply.ok)throw Error();data=await reply.json();}
-      catch(_) {status.textContent='暂时无法读取报告，请稍后重试。';return;}
+      catch(_) {status.textContent='The report could not be read just now. Retrying shortly.';return;}
     }
     body.replaceChildren();
     const pub=data._publication;
-    status.textContent=(live?'自动发布结果':'自动结果暂不可读，显示本次部署的旧快照')+' · 测试时间：'+(data.generated_at||data.run_at||'未知')+(pub?' · 发布时间：'+pub.published_at:'')+' · 页面每分钟检查更新';
-    const source=panel.querySelector('[data-source]');source.href=live?base+path:'/'+path;source.textContent=live?'最新机器报告':'快照机器报告';
+    status.textContent=(live?'automatically published result':'The live result is unreadable; showing the snapshot from this deployment')+' \u00b7 run at '+(data.generated_at||data.run_at||'unknown')+(pub?' \u00b7 published '+pub.published_at:'')+' \u00b7 this page checks for updates every minute';
+    const source=panel.querySelector('[data-source]');source.href=live?base+path:'/'+path;source.textContent=live?'latest machine report':'snapshot machine report';
     for(const item of (channel==='lifecycle'?data.rounds:data.models)||[]) {
       const tr=document.createElement('tr');
       if(channel==='lifecycle') [item.round_id,item.mode,item.status,item.filed_at,item.score??'pending',item.reason||''].forEach(v=>cell(tr,v));
-      else [item.model,(item.initial||[]).map(r=>r.status).join(', '),item.replay_cache_hit?'通过':'未通过',item.race_same_generation===false?'并发生成不一致':(item.race_same_generation===true?'通过':'本轮未测并发')].forEach(v=>cell(tr,v));
+      else [item.model,(item.initial||[]).map(r=>r.status).join(', '),item.replay_cache_hit?'passed':'failed',item.race_same_generation===false?'race produced different generations':(item.race_same_generation===true?'passed':'no race test this run')].forEach(v=>cell(tr,v));
       body.appendChild(tr);
     }
   }

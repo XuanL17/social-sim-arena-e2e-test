@@ -1,43 +1,76 @@
-# 隔离测试赛季生命周期
+# Isolated season lifecycle
 
-## 实现与权限
+## What it is, and what it is allowed to touch
 
-`tools/qa_lifecycle.py` 只读取两道真实 Wikipedia weekly-top10 题，写 `qa-lifecycle/`。测试参赛者固定为 `qa-persistence-public-source`，算法是复制截止前已完成周的真实排名；不调用任何 LLM 或正式 refresh/harness。它和免费 LLM 参赛测试是不同的测试层，不能称作 LLM 自动赛季已通过。
+`tools/qa_lifecycle.py` reads two real Wikipedia weekly-top10 questions and
+writes `qa-lifecycle/`. The test entrant is fixed as
+`qa-persistence-public-source` and its algorithm is to copy the real ranking of a
+week that finished before the deadline. It calls no LLM and neither the
+production refresh nor the harness. This is a different test layer from the
+free-model entrant tests; passing here is not "the LLM season passes".
 
-- `sources/YYYY-MM-DD.json`：Wikimedia 官方 daily top API 原文、来源 URL、首次抓取时间、SHA-256；重复运行复用并校验原文摘要，不覆盖首次归档。
-- `forecasts/`：预测排名、真实 `filed_at`、输入周和输入摘要；首次写入后保留，不把迟交回填成及时提交。
-- `resolutions/`：真实七日结果与来源摘要，全部七天成功才结算。
-- `report.json` / `index.html`：独立测试榜，明确历史回放和实时测试、pending/blocked/missed_deadline，不合并正式排行榜。
+- `sources/YYYY-MM-DD.json` -- the Wikimedia daily-top API response verbatim,
+  its source URL, the first fetch time and a SHA-256. A repeated run reuses the
+  archive and checks the digest; it never overwrites the first copy.
+- `forecasts/` -- the predicted ranking, the real `filed_at`, the input week and
+  an input digest. Kept after the first write, so a late answer is never
+  backdated into a timely one.
+- `resolutions/` -- the real seven-day result and its source digests. A question
+  resolves only when all seven days succeeded.
+- `report.json` / `index.html` -- an isolated board that marks historical replay
+  against live test, and `pending` / `blocked` / `missed_deadline`. It is never
+  merged into the official leaderboard.
 
-公开源 HTTP 429 有最多三次尝试、每次至少1.2秒节流、有限 Retry-After 等待。持续失败输出 blocked 和非零退出码；已取到的归档不丢失。执行器在 **2026-10-01 00:00 UTC** 后停止拉取与改写。
+A public source returning HTTP 429 gets at most three attempts, at least 1.2 s
+apart, with a bounded `Retry-After` wait. Sustained failure prints `blocked` and
+exits non-zero; archives already fetched are not lost. The runner stops fetching
+and rewriting after **2026-10-01 00:00 UTC**.
 
-## 已执行的真实验证
+## What has actually run
 
-2026-09-15 使用真实官方 API 取得 **21 个日归档**。第一次因429输出 blocked，加入节流后的续跑复用既有归档并成功。
+On 2026-09-15 the real official API returned **21 daily archives**. The first
+attempt printed `blocked` on 429; the follow-up run with throttling reused the
+existing archives and succeeded.
 
-| 真实题 | 模式 | 当前结果 |
-|---|---|---|
-| wiki-top10-2026-09-06 | historical_replay | resolved，生产 RBO loss **0.9466326921358921** |
-| wiki-top10-2026-09-27 | live_test | 预测已在9/18 14:00 UTC截止前冻结，真实结果 **pending** |
+| Real question | Mode | Current result |
+| --- | --- | --- |
+| wiki-top10-2026-09-06 | historical_replay | resolved, production RBO loss **0.9466326921358921** |
+| wiki-top10-2026-09-27 | live_test | forecast frozen before the 2026-09-18 14:00 UTC deadline, real result **pending** |
 
-历史回放预测在本次运行时生成，用赛前历史周构造，但不是2026年8月真实及时提交。未来题的截止是 **9/18 14:00 UTC**，预定发布是 **9/29 14:00 UTC**。目标周已完成的天会逐日归档，但发布时刻之前不生成 outcome 或 score；缺日、源错误也不生成成绩。真实未来结算只能等真实结果到来。
+The replayed forecast was generated during this run from a pre-deadline
+historical week. It is not a real, timely August 2026 submission. The future
+question locks at **2026-09-18 14:00 UTC** and is due **2026-09-29 14:00 UTC**.
+Finished days of the target week are archived day by day, but no outcome and no
+score is produced before the release instant, and a missing day or a source error
+produces no score either. A real future resolution can only wait for the real
+result.
 
-`python -m unittest tests.test_qa_lifecycle` 验证 pending→resolved、重复执行不重新抓取/不覆盖预测、迟交拒绝、错误日期/不完整周不结算、摘要篡改拒绝。测试夹具中的数据只用于单元测试，不进入公开真实报告。
+`python -m unittest tests.test_qa_lifecycle` covers pending -> resolved, a repeat
+run neither re-fetching nor overwriting a forecast, a late answer refused, wrong
+dates and incomplete weeks not resolving, and a tampered digest refused. Fixture
+data stays in the unit tests and never reaches the public report.
 
-## 工作流与发布边界
+## Workflow and publication boundary
 
-`.github/workflows/qa-lifecycle.yml` 配置了 `workflow_dispatch` 与每6小时执行；推送至测试仓库后生效，2026-10-01 UTC停止源处理。workflow 只允许测试 fork，权限是 `contents:read`、`actions:read`。它通过内置短期 token 下载上一轮 `qa-lifecycle-state` artifact 恢复持久归档和预测，再运行、上传30天保留的完整 artifact。
+`.github/workflows/qa-lifecycle.yml` runs on `workflow_dispatch` and every six
+hours, and stops source work on 2026-10-01 UTC. It runs only on the test fork,
+with `contents: read` and `actions: read`. It restores the previous
+`qa-lifecycle-state` artifact with its own short-lived token to recover archives
+and forecasts, then runs and uploads a complete artifact kept for 30 days.
 
-它**不自动 git push，不修改主分支，不部署平台**。本轮主代理可审核后一次性发布 `qa-lifecycle/`；未来自动公开发布需要另行具体授权和部署方案。Artifact 内含静态榜单，满足每次执行产物检查，但不等于未来公网榜单已自动更新。workflow 没有 push 触发，避免自触发循环。
+It does **not** push, modify the default branch or deploy the platform. Results
+reach the public page through the `qa-results` branch only; see
+[qa-auto-publish.md](qa-auto-publish.md) for the permissions, the scope and the
+failure fallback. The workflow has no push trigger, so it cannot retrigger
+itself.
 
-## 复现
+## Reproduce
 
 ```sh
 .local/venv/bin/python -m unittest tests.test_qa_lifecycle
 .local/venv/bin/python tools/qa_lifecycle.py
 ```
 
-只从真实墙钟判断截止/发布，命令行没有伪造 now 的入口。`--output` 可指定另一个隔离目录；不要指向正式数据目录。
-
-
-更新：用户已授权专用 qa-results 分支自动发布；网页读取最新结果，不再仅停留在部署快照。具体权限、范围和失败回退见 qa-auto-publish.md。原文中仅归档/未授权描述为此前状态。
+Deadlines and release times are judged from the real wall clock; there is no
+command-line way to fake `now`. `--output` points at a different isolated
+directory -- never at a production data directory.
